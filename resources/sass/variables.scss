@@ -1,0 +1,43 @@
+// Body
+$body-bg: #f8fafc;
+
+// Typography
+$font-family-sans-serif: 'Source Code Pro', monos-pace;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+$purple: #5d549c;
+$lightPurple: #574e92;
+$lighterPurple: #c570e6;
+$pink: #cfa3b8;
+/* gradient */
+$list1: $purple, $lightPurple, $lighterPurple;
+
+// Colours
+//$purple: #aaaaaa !default;
+$purpleButton: $purple !default;
+$theme-colors: () !default;
+$theme-colors: map-merge(
+  (
+    'purpleButton': $purpleButton
+  ),
+$theme-colors
+);
+
+// add some more font-sizes
+$display-font-sizes: (
+  1: 5rem,
+  2: 4.5rem,
+  3: 4rem,
+  4: 3.5rem,
+  5: 3rem,
+  6: 2.5rem,
+  7: 2rem,
+  8: 1.5rem
+) !default;
+
+$spacer: 1rem;
+$spacers: (
+  6: ($spacer * 4.5),
+  7: ($spacer * 5.5)
+)

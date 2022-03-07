@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +15,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('get_started');
 });
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// trip crud
+Route::get('/trip/create', [App\Http\Controllers\TripController::class, 'create'])->name('create-trip');
+Route::get('/trip/delete/{id}', [App\Http\Controllers\TripController::class, 'destroy'])->name('delete-trip');
+// Route::post('/create-trip', [App\Http\Controllers\TripController::class, 'create'])->name('create-trip');
+Route::post('/trip/store', [App\Http\Controllers\TripController::class, 'store']);
+
+// itinerary 
+
+Route::get('/trip/{id}/itinerary', [App\Http\Controllers\ItineraryController::class, 'index'])->name('itinerary');
+Route::post('/itinerary/store', [App\Http\Controllers\ItineraryController::class, 'store']);
+
+Auth::routes();
+
+// 

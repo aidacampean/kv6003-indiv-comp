@@ -13,3 +13,8 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+.ash_history
+.node_repl_history
+.config/
+.npm/
+.composer/

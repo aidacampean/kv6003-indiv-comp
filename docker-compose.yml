@@ -30,7 +30,7 @@ services:
       - "443:443"
     volumes:
       - ./:/var/www
-      - ./docker_config/nginx/conf.d:/etc/nginx/conf.d
+      - ./docker_config/nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - app-network
  
@@ -48,8 +48,8 @@ services:
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
-      - mysql-files:/var/lib/mysql-files
-      # - ./docker_config/mysql/my.cnf:/etc/mysql/my.cnf
+      - dbdata:/var/lib/mysql
+      #- ./docker_config/mysql/my.cnf:/etc/mysql/my.cnf
     networks:
       - app-network
  
@@ -63,7 +63,7 @@ services:
       - 8080:80
     environment:
       PMA_HOST: db
-      PMA_PORT: 3308
+      PMA_PORT: 3306
       PMA_PASSWORD: tester
     networks:
       - app-network
@@ -75,5 +75,5 @@ networks:
  
 #Volumes
 volumes:
-  mysql-files:
+  dbdata:
     driver: local

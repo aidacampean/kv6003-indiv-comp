@@ -10,9 +10,25 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "axios": "^0.25",
-        "laravel-mix": "^6.0.6",
+        "@popperjs/core": "^2.10.2",
+        "axios": "^0.25.0",
+        "bootstrap": "^4.5.3",
+        "laravel-mix": "^6.0.42",
         "lodash": "^4.17.19",
-        "postcss": "^8.1.14"
+        "postcss": "^8.1.14",
+        "resolve-url-loader": "^5.0.0",
+        "sass": "^1.35.1",
+        "sass-loader": "^11.0.1",
+        "vue": "^2.6.12",
+        "vue-loader": "^15.9.8",
+        "vue-template-compiler": "^2.6.12"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^6.0.0",
+        "@popperjs/core": "^2.11.2",
+        "bootstrap-vue": "^2.21.2",
+        "moment": "^2.29.1",
+        "portal-vue": "^2.1.7",
+        "vue": "^2.6.14"
     }
 }

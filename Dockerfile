@@ -1,13 +1,14 @@
 FROM php:fpm-alpine
  
+ARG WORK_DIR=/var/www
 # Copy composer.lock and composer.json
-COPY composer.lock composer.json /var/www/
+#COPY composer.lock composer.json /var/www/
  
 # Set working directory
-WORKDIR /var/www
+WORKDIR ${WORK_DIR}
  
 # Install dependencies
-RUN apk add --no-cache php8 \
+RUN apk update && apk add --no-cache php8 \
     php8-common \
     php8-pdo \
     php8-opcache \
@@ -32,7 +33,9 @@ RUN apk add --no-cache php8 \
     curl \
     bash \
     zip \
-    unzip
+    unzip \
+    nodejs \
+    npm
  
 # Clear cache
 # RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -64,10 +67,10 @@ RUN adduser \
 # RUN adduser -D -H -u 1000 -s /bin/bash developer -G www
  
 # Copy existing application directory contents
-COPY . /var/www
+COPY . ${WORK_DIR}
  
 # Copy existing application directory permissions
-COPY --chown=www:www . /var/www
+COPY --chown=www:www . ${WORK_DIR}
  
 # Change current user to www
 USER www
