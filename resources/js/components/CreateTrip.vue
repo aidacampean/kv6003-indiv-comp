@@ -4,7 +4,7 @@
       <b-form-group
         id="input-group-1"
         label-for="input-1"
-        class="mx-3  pt-4"
+        class="mx-3 pt-4"
       >
       
         <b-form-select

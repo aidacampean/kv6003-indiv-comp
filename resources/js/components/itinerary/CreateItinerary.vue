@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h2>{{ 'Trip to ' + data.name }}</h2>
-    <h5> {{ data.date_from | formatDate }} to {{ data.date_to | formatDate }}</h5>
+    <h2>{{ 'Trip to ' + trip.name }}</h2>
+    <h5> {{ trip.date_from | formatDate }} to {{ trip.date_to | formatDate }}</h5>
     <hr>
     <!-- <b-card class="primary-card"> 
       <b-card class="secondary-card">
@@ -23,7 +23,6 @@
 
     <section-itinerary />
     <add-event /> -->
-
 
     <div class="day-row">
       <!-- <day-test>
@@ -50,34 +49,30 @@
         </template>
       </day-test> -->
 
-    <div v-for="(day, index) in days" :key="index">
-         {{ 'Day' + day }}
+      <div v-for="(day, index) in days" :key="index">
+          {{ 'Day' + day }}
+      </div>
     </div>
-</div>
   </div>
 </template>
 
 <script>
-  import Section from './Section.vue'
   import AddEvent from './AddEvent.vue'
-  import Day from './Days.vue'
-  import DayTest from './DayTest.vue'
+  import Days from './Days.vue'
 
 export default {
   components: {
-    'section-itinerary': Section,
-    'event-itinerary': AddEvent,
-    'days-itinerary': Day,
-    'day-test': DayTest,
+    'days-itinerary': Days,
+    'add-event': AddEvent
   },
   props: {
-    data: {
+    trip: {
       type: Object,
       default: () => []
     },
     days: {
-      type: Number,
-      default: {}
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -91,7 +86,6 @@ export default {
 </script>
 
 <style scoped>
-
   .primary-card {
       padding: 50px;
       height: auto;

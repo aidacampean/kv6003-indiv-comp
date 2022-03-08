@@ -1,13 +1,16 @@
 <template>
 <div>
-        <b-row class="horizontal">
-            <b-col class="bottom-margin" sm=4 v-for="(day, index) in days" :key="index">
-            <b-button variant="danger" class="w-100" size="lg" v-b-modal.modal-1>{{ 'Day ' + day }}</b-button>
-                <day-test/>
-            </b-col>
-        </b-row>
+    <b-modal id="modal-1" size="lg" scrollable title="Add your details to the itinerary">
+      <sections-itinerary/>
+    </b-modal>
+    <b-row class="horizontal">
+        <b-col class="bottom-margin" sm=4 v-for="(day, index) in days" :key="index">
+        <b-button variant="danger" class="w-100" size="lg" v-b-modal.modal-1>{{ 'Day ' + day }}</b-button>
+           <add-event :sections="trip"> </add-event>
+        </b-col>
+    </b-row>
 
-        <b-card-group>
+        <!-- <b-card-group> -->
             <!-- <b-card>
             <b-card-text>
             </b-card-text>
@@ -33,26 +36,24 @@
                 <small class="text-muted">Last updated 3 mins ago</small>
             </template>
             </b-card> -->
-        </b-card-group>
-  <b-modal id="modal-1" size="xl" scrollable title="Add your details to the itinerary">
-    <p class="my-4" v-for="i in 20" :key="i"> Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-      in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-  </b-modal>
-
+        <!-- </b-card-group> -->
 </div>
+
 
 </template>
 
 <script>
-import DayTest from './DayTest.vue'
+import Section from './Section.vue'
+import AddEvent from './AddEvent.vue'
+
 
 export default { 
     components: {
-        'day-test': DayTest
+        'sections-itinerary': Section,
+        'add-event': AddEvent
     },
-    name: 'days-itinerary',
     props: {
-        options: {
+        trip: {
           type: Object,
           default: () => []
         },
@@ -78,6 +79,10 @@ export default {
 </script>
 
 <style scope>
+
+.modal-dialog-scrollable .modal-content {
+    min-height: calc(100vh - 4rem);
+}
 
 .horizontal {
     overflow-x: scroll;

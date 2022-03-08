@@ -1,24 +1,46 @@
 <template>
-<div>
-  <b-card class="primary-card">
-    </b-card>
-</div>
+  <div class="day-col">
+    <header>
+      <slot name="header" />
+    </header>
+    <main>
+      <slot />
+    </main>
+    
+    <button class="add-event" v-b-modal.modal-1>
+      + Add
+    </button>
+  </div>
 </template>
 
 <script>
   export default {
-    data() {
-        return {
-
-        }
+    name:"AddEvent",
+    props: {
+      data: {
+        type: Object,
+        default: () => []
+      }
     },
+    data() {
+      return {
+          
+      }
+    }
   }
 </script>
 
 <style scoped>
-.primary-card {
-      padding: 50px;
-      height: auto;
-      width: 20%;
+  .day-col {
   }
- </style>
+
+  .add-event {
+    border: 0;
+    margin-top:10px;
+    padding: 5px;
+    text-align: center;
+    background-color: rgb(240, 238, 238);
+    color: #999;
+    width: 100%;
+  }
+</style>

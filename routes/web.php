@@ -27,9 +27,11 @@ Route::get('/trip/delete/{id}', [App\Http\Controllers\TripController::class, 'de
 Route::post('/trip/store', [App\Http\Controllers\TripController::class, 'store']);
 
 // itinerary 
-
 Route::get('/trip/{id}/itinerary', [App\Http\Controllers\ItineraryController::class, 'index'])->name('itinerary');
 Route::post('/itinerary/store', [App\Http\Controllers\ItineraryController::class, 'store']);
+Route::post('/itinerary/store', [App\Http\Controllers\ItineraryController::class, 'store']);
+Route::get('/trip/{id}/itinerary/sections', [App\Http\Controllers\SectionController::class, 'create'])->name('sections');
+
 
 Auth::routes();
 

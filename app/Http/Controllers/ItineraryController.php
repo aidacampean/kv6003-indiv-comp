@@ -35,9 +35,6 @@ class ItineraryController extends Controller
                 'total_days' => $days + 1
             ]
         );
-
-       
-
     }
 
     /**
