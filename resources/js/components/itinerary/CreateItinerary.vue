@@ -3,67 +3,25 @@
     <h2>{{ 'Trip to ' + trip.name }}</h2>
     <h5> {{ trip.date_from | formatDate }} to {{ trip.date_to | formatDate }}</h5>
     <hr>
-    <!-- <b-card class="primary-card"> 
-      <b-card class="secondary-card">
-        <h2>{{ data.name }}</h2>
-        <hr>
-
-        <b-card-title class="display-5 text-center">{{ 'Trip to ' + data.name }}</b-card-title>
-        <hr>
-        <b-card-text  class="">
-          <strong>Departure date:</strong> {{ data.date_from | formatDate }}
-        </b-card-text>
-
-        <b-card-text  class="">
-          <strong>Arrival date:</strong> {{ data.date_to | formatDate }}
-        </b-card-text>
-      </b-card>
-    
-    </b-card>
-
-    <section-itinerary />
-    <add-event /> -->
-
-    <div class="day-row">
-      <!-- <day-test>
-        <template #header>
-          Day 1
-        </template>
-      </day-test>
-
-      <day-test>
-        <template #header>
-          Day 2
-        </template>
-      </day-test>
-
-      <day-test>
-        <template #header>
-          Day 3
-        </template>
-      </day-test>
-
-      <day-test>
-        <template #header>
-          Day 4
-        </template>
-      </day-test> -->
-
-      <div v-for="(day, index) in days" :key="index">
-          {{ 'Day' + day }}
+    <b-row class="horizontal">
+      <b-modal id="modal-1" size="lg" scrollable title="Add your details to the itinerary">
+         <div >
       </div>
-    </div>
+        <sections-itinerary v-for="(section, index) in sections" :key="section.name" :name="section.name"></sections-itinerary>
+      </b-modal>
+      <days v-for="(day, index) in days" :key="index" :type="trip" :id="day" />
+    </b-row>
   </div>
 </template>
 
 <script>
-  import AddEvent from './AddEvent.vue'
   import Days from './Days.vue'
+  import Section from './Section.vue'
 
 export default {
   components: {
-    'days-itinerary': Days,
-    'add-event': AddEvent
+    'days': Days,
+    'sections-itinerary': Section
   },
   props: {
     trip: {
@@ -71,13 +29,14 @@ export default {
       default: () => []
     },
     days: {
-      type: Array,
-      default: () => []
+      type: Number,
+      default: 0
     }
   },
   data() {
     return {
      // totalDays: moment.diff(data.date_from)
+      sections: [{ 'name': 'Flights'}, { 'name': 'Hotels'}]
     }
   }
   
@@ -86,16 +45,6 @@ export default {
 </script>
 
 <style scoped>
-  .primary-card {
-      padding: 50px;
-      height: auto;
-  }
-
-  .secondary-card {
-      height: 50%;
-      width: 50%;
-  }
-
   h2 {
     color: rgb(82, 79, 79);
   }
@@ -103,18 +52,5 @@ export default {
   h5 {
     color: #666;
     font-size: 0.9em;
-  }
-
-  .day-row {
-    /* content: "";
-    display: inline-block;
-    flex-shrink: 0;
-    width: .625rem;
-    height: 100%;
-    transition: width 1s ease; */
-    display: flex;
-    width: -webkit-max-content;
-    width: -moz-max-content;
-    width: max-content;
   }
 </style>

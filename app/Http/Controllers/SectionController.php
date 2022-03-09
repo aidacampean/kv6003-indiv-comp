@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class SectionController extends Controller
 {
-    /**
+    /* 
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -15,6 +15,10 @@ class SectionController extends Controller
     public function index()
     {
         //
+        // Trip::whereHas('sections')->get();
+
+        // return view('sections');
+        // print_r($data);
     }
 
     /**
@@ -88,6 +92,12 @@ class SectionController extends Controller
      */
     public function destroy(Section $section)
     {
-        //
+        $section = Section::whereId($id)->firstOrFail();
+
+        if ($section) {
+            // find trip by id and delete if found
+            $section->delete();
+        }
+
     }
 }

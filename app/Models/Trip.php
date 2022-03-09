@@ -40,4 +40,9 @@ class Trip extends Model
     {
         return $this->hasOne(User::class);
     }
+
+    public function section()
+    {
+        return $this->hasMany(Section::class);
+    }
 }

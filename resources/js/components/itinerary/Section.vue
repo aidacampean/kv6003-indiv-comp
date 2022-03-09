@@ -2,17 +2,17 @@
 <div>
   <b-container>
       <i :class="hide ? showIcon : hideIcon" @click="changeState();"></i>
-      {{ ' RESERVATIONS'  }}
-      <b-dropdown class="icon" size="lg"  variant="link" toggle-class="text-decoration-none" no-caret>
+        {{ name }}
+      <b-dropdown class="icon" variant="link" toggle-class="text-decoration-none" no-caret>
         <template #button-content>
         <i class="fas fa-ellipsis-v"></i>
         </template>
-          <b-dropdown-item href="#">Edit</b-dropdown-item>
-          <b-dropdown-item href="#">Delete</b-dropdown-item>
+          <b-dropdown-item href="">Edit</b-dropdown-item>
+          <b-dropdown-item @click="deleteAction()">Delete</b-dropdown-item>
       </b-dropdown>
        <div class="content" v-show="!hide">
-          this is a test
-        </div>
+  
+       </div>
     <!-- <b-button class="ml-2" variant="secondary" size="sm">Edit</b-button>
     <b-button variant="danger" size="sm">Delete</b-button> -->
   </b-container>
@@ -23,17 +23,13 @@
 <script>
   export default {
     props: {
-      sections: {
-        type: Array,
-        default: [{}]
+      name: {
+        type: String,
+        default: null
       }
     },
     data() {
         return {
-          // form: {
-          //   name: '',
-          //   description: ''
-          // },
           hide: true,
           showIcon: 'fa-solid fa-angle-right',
           hideIcon: 'fa-solid fa-angle-down'
@@ -43,15 +39,13 @@
       changeState() {
         return this.hide = this.hide ? false : true;
       },
-      submitForm(){
-        // axios.post('/trip/store/', {
-        //   'name': this.form.name,
-        //   'description': this.form.description
-        // }).then(({data})=> {
-        //   window.location.href = "/trip/" + data.id + "/itinerary"
-        // }).catch(({response}) => {
-        //   this.errors = response.data.errors
-        // })
+      deleteAction(){
+        axios.post('/trip/{id}/itinerary/section/delete', {
+          'name': this.name
+        }).then(()=> {
+        }).catch(({response}) => {
+          this.errors = response.data.errors
+        })
       }
     }
   }
