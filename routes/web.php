@@ -29,8 +29,13 @@ Route::post('/trip/store', [App\Http\Controllers\TripController::class, 'store']
 // itinerary 
 Route::get('/trip/{id}/itinerary', [App\Http\Controllers\ItineraryController::class, 'index'])->name('itinerary');
 Route::post('/itinerary/store', [App\Http\Controllers\ItineraryController::class, 'store']);
-Route::post('/itinerary/store', [App\Http\Controllers\ItineraryController::class, 'store']);
 
+//event
+Route::post('/trip/add-event', [App\Http\Controllers\EventController::class, 'store']);
+Route::get('/trip/destroy-event/{id}', [App\Http\Controllers\EventController::class, 'destroy']);
+Route::post('/trip/update-event', [App\Http\Controllers\EventController::class, 'update']);
+
+// Route::get('/my-details', )
 
 Auth::routes();
 

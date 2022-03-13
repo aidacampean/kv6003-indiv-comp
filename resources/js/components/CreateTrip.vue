@@ -8,15 +8,14 @@
       >
       
         <b-form-select
-        size="lg"
+          size="lg"
           id="input-1"
           v-model="form.city_id"
           value-field="id"
           text-field="name"
-          label="test"
+          label="city"
           class="form-control"
           required
-
         >
          <option :value="0">Please select a destination</option>
           <option :key="option.id" v-for="option in options" :value="option.id">

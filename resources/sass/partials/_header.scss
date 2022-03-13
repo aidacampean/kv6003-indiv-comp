@@ -1,3 +1,16 @@
+.nav-item {
+    &a, :hover, :active, :link, :visited {
+        color: #fff;
+    }
+}
+
+.header {
+    min-height: 100px;
+}
+
+.background {
+    background-color: #01353D;
+}
 .nav-item.active a {
-    color: #fff !important;
+    border-bottom: 1px solid white;
 }

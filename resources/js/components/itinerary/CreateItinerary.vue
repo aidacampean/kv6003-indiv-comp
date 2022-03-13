@@ -3,43 +3,51 @@
     <h2>{{ 'Trip to ' + trip.name }}</h2>
     <h5> {{ trip.date_from | formatDate }} to {{ trip.date_to | formatDate }}</h5>
     <hr>
+    
     <b-row class="horizontal">
-      <b-modal id="modal-1" size="lg" scrollable title="Add your details to the itinerary">
-         <div >
-      </div>
-        <sections-itinerary v-for="(section, index) in sections" :key="section.name" :name="section.name"></sections-itinerary>
-      </b-modal>
-      <days v-for="(day, index) in days" :key="index" :type="trip" :id="day" />
+
+      <!-- <days v-for="(day, index) in days" :key="index" :type="trip" :id="day" /> -->
+      <days
+        v-for="(day, key, index) in trip.days"
+        :key="key"
+        :events="day"
+        :date="key"
+        :counter="index+1"
+        :tripId="trip.id"
+        class="content overflow-auto"
+      />
     </b-row>
   </div>
 </template>
 
 <script>
   import Days from './Days.vue'
-  import Section from './Section.vue'
 
-export default {
-  components: {
-    'days': Days,
-    'sections-itinerary': Section
-  },
-  props: {
-    trip: {
-      type: Object,
-      default: () => []
+  export default {
+    components: {
+      'days': Days
     },
-    days: {
-      type: Number,
-      default: 0
-    }
-  },
-  data() {
-    return {
-     // totalDays: moment.diff(data.date_from)
-      sections: [{ 'name': 'Flights'}, { 'name': 'Hotels'}]
-    }
-  }
-  
+    props: {
+      trip: {
+        type: Object,
+        default: () => []
+      }
+    },
+    data() {
+      return {
+        form: {
+          name: 'flight',
+          bookingReference: '',
+          date: ''
+        },
+        events: [
+          {'name': 'Flights'},
+          {'name': 'Hotels'},
+          {'name': 'Excursions'},
+          {'name': 'Other'}
+        ]
+      }
+    },
   }
 
 </script>
@@ -52,5 +60,9 @@ export default {
   h5 {
     color: #666;
     font-size: 0.9em;
+  }
+
+  .content {
+    max-height: 300px;
   }
 </style>

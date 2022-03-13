@@ -10833,7 +10833,7 @@ html,
 body {
   height: 100%;
   width: 100%;
-  background-image: linear-gradient(to right, #5d549c, #c570e6, #cfa3b8);
+  background-image: linear-gradient(to right, #01353d, #00686c, #0ad8a3);
   display: flex;
   align-items: center;
   padding-top: 40px;
@@ -10845,7 +10845,7 @@ body {
 }
 
 .button:hover {
-  background-color: #aaaaaa;
+  background-color: #17a3b9;
   transition-duration: 0.3s;
 }
 

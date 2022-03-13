@@ -7,11 +7,17 @@
 .custom-card {
   border: 1px dashed #ccc !important;
   background-color: snow !important;
-  min-height: 250px;
-  align-items: center;
 }
 .custom-card .container {
   padding: 2px 16px;
+}
+
+.btn-green {
+  background-color: #00686c;
+}
+
+a:hover {
+  background-color: #00686b;
 }
 
 .root {
@@ -21,8 +27,20 @@
   align-items: center;
 }
 
+.nav-itema, .nav-item :hover, .nav-item :active, .nav-item :link, .nav-item :visited {
+  color: #fff;
+}
+
+.header {
+  min-height: 100px;
+}
+
+.background {
+  background-color: #01353D;
+}
+
 .nav-item.active a {
-  color: #fff !important;
+  border-bottom: 1px solid white;
 }
 
 /*!
@@ -20763,4 +20781,26 @@ readers do not read off random characters that represent icons */
 .fa-solid {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
+}
+
+/*!
+ * Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ * Copyright 2022 Fonticons, Inc.
+ */
+:root, :host {
+  --fa-font-regular: normal 400 1em/1 "Font Awesome 6 Free";
+}
+
+@font-face {
+  font-family: "Font Awesome 6 Free";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff2?d79c2ec96ab9ff1161a2fb19a1c679b2) format("woff2"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.ttf?15d98c18221c8bcb2334fcbe66f5f842) format("truetype");
+}
+.far,
+.fa-regular {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 400;
 }

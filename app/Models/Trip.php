@@ -41,8 +41,8 @@ class Trip extends Model
         return $this->hasOne(User::class);
     }
 
-    public function section()
+    public function events()
     {
-        return $this->hasMany(Section::class);
+        return $this->hasMany(Event::class)->orderBy('date', 'desc');
     }
 }

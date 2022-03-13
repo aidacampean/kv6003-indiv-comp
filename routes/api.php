@@ -18,4 +18,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/trip/{id}/itinerary/section/delete', [App\Http\Controllers\SectionController::class, 'destroy']);
+Route::post('/trip/{id}/itinerary/event/delete', [App\Http\Controllers\EventController::class, 'destroy']);
+
+// Route::post('/trip/add-event', [App\Http\Controllers\EventController::class, 'store']);
