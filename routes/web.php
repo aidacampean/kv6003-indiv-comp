@@ -18,6 +18,10 @@ Route::get('/', function () {
     return view('get_started');
 });
 
+// Route::get('/email/verify', function () {
+//     return view('auth.verify-email');
+// })->middleware('auth')->name('verification.notice');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // trip crud
@@ -33,8 +37,15 @@ Route::post('/itinerary/store', [App\Http\Controllers\ItineraryController::class
 //event
 Route::post('/trip/add-event', [App\Http\Controllers\EventController::class, 'store']);
 Route::get('/trip/destroy-event/{id}', [App\Http\Controllers\EventController::class, 'destroy']);
-Route::post('/trip/update-event', [App\Http\Controllers\EventController::class, 'update']);
+Route::post('/trip/update-event/{id}', [App\Http\Controllers\EventController::class, 'update']);
 
+// my account
+Route::get('/account', [App\Http\Controllers\UserController::class, 'index'])->name('my-account');
+Route::post('/account/store-details', [App\Http\Controllers\UserController::class, 'store'])->name('store-details');
+
+// Route::get('/account', function () {
+//     return view('my_account');
+// });
 // Route::get('/my-details', )
 
 Auth::routes();
