@@ -55,4 +55,9 @@ class Trip extends Model
     {
         return $this->hasOne(Itinerary::class);
     }
+
+    public function collaborators()
+    {
+        return $this->hasMany(Collaborator::class);
+    }
 }

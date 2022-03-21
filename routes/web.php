@@ -43,6 +43,11 @@ Route::post('/trip/update-event/{id}', [App\Http\Controllers\EventController::cl
 Route::get('/account', [App\Http\Controllers\UserController::class, 'index'])->name('my-account');
 Route::post('/account/store-details', [App\Http\Controllers\UserController::class, 'store'])->name('store-details');
 
+//collaboration
+Route::get('/trip/{id}/collaborate', [App\Http\Controllers\CollaborateController::class, 'index'])->name('collaborate');
+Route::get('/trip/{id}/invite', [App\Http\Controllers\CollaborateController::class, 'invite'])->name('invite');
+Route::post('/trip/{id}/invite', [App\Http\Controllers\CollaborateController::class, 'StoreInvite'])->name('store-invite');
+
 // Route::get('/account', function () {
 //     return view('my_account');
 // });

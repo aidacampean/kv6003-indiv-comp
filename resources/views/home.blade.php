@@ -55,7 +55,7 @@
                         {!! 'Delete' !!}
                     </a>
 
-                    <a class="mt-2 btn btn-primary">+ Invite people</a>
+                    <a class="mt-2 btn btn-primary" href="{{ route('collaborate', ['id' => $trip->id]) }}">+ Invite people</a>
                   </div>
               </div>
             </div>

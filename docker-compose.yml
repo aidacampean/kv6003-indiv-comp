@@ -31,6 +31,7 @@ services:
     volumes:
       - ./:/var/www
       - ./docker_config/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./docker_config/nginx/certs/:/etc/nginx/certs
     networks:
       - app-network
  
@@ -69,6 +70,17 @@ services:
     networks:
       - app-network
  
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    logging:
+      driver: 'none'  # disable saving logs
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
+    networks:
+      - app-network
+
 #Docker Networks
 networks:
   app-network:
