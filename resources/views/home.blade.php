@@ -41,21 +41,21 @@
                   </div>
 
                   <div class="pull-right mb-1">
-                    <a class="text-white btn btn-secondary" href="{{ route('itinerary', ['id' => $trip->id]) }}">
+                    <a class="mt-2 text-white btn btn-secondary" href="{{ route('itinerary', ['id' => $trip->id]) }}">
 
                       <!-- add edit icon -->
                         <i class="fas fa-edit"></i>
                         Edit
                     </a>
 
-                    <a class="text-white btn green hover" href="{{ route('delete-trip', ['id' => $trip->id]) }}" onclick="return confirm('Are you sure?')">
+                    <a class="mt-2 text-white btn green hover" href="{{ route('delete-trip', ['id' => $trip->id]) }}" onclick="return confirm('Are you sure?')">
                       
                       <!-- add trash icon -->
                       <i class="fas fa-trash"></i>
                         {!! 'Delete' !!}
                     </a>
 
-                    <a class="btn btn-primary">+ Invite people</a>
+                    <a class="mt-2 btn btn-primary">+ Invite people</a>
                   </div>
               </div>
             </div>
