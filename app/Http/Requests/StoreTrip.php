@@ -38,7 +38,6 @@ class StoreTrip extends FormRequest
     {
         return [
             'name.required' => 'Please choose a trip destination',
-            'city_id' => 'Please choose a city',
             'date_from.required' => 'Please choose a departing date',
             'date_to.required' => 'Please choose an arrival date',
             'date_to.after' => 'Arrival date must be after departure date'
