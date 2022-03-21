@@ -20,4 +20,9 @@ class City extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function trip()
+    {
+        return $this->belongsTo(Trip::class);
+    }
 }

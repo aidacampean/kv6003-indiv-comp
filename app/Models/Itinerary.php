@@ -24,6 +24,11 @@ class Itinerary extends Model
     
     public function trip()
     {
-        return $this->hasOne(Trip::class);
+        return $this->belongsTo(Trip::class);
+    }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
     }
 }

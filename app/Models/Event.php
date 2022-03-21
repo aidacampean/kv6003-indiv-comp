@@ -24,4 +24,9 @@ class Event extends Model
     {
         return $this->hasOne(Trip::class, 'trip_id');
     }
+
+    public function itinerary()
+    {
+        return $this->hasOne(itinerary::class);
+    }
 }

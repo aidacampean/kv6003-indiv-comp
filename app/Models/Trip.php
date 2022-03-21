@@ -45,4 +45,14 @@ class Trip extends Model
     {
         return $this->hasMany(Event::class)->orderBy('date', 'desc');
     }
+
+    public function city()
+    {
+        return $this->hasOne(City::class);
+    }
+
+    public function itinerary()
+    {
+        return $this->hasOne(Itinerary::class);
+    }
 }
