@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
+use App\Http\Requests\UpdateEvent;
 use App\Http\Requests\StoreEvent;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -105,19 +106,15 @@ class EventController extends Controller
      * @param  \App\Models\Event $event
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Event $event)
+    public function update(UpdateEvent $request, int $id)
     {
         //
         $validated = $request->validated();
         $event = Event::whereId($id)->firstOrFail();
         
         if ($event) {
-            $event = Event::update([
-                'trip_id' => $validated['id'],
-                'name' => $validated['name'],
-                'description' => $validated['description'],
-                'date' => $validated['date']
-            ]);
+            $event->name = $validated['name'];
+            $event->description = $validated['description'];
         }
 
         if ($event->save()) {
