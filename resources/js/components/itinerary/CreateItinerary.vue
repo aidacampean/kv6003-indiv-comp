@@ -47,7 +47,7 @@
           {'name': 'Other'}
         ]
       }
-    },
+    }
   }
 
 </script>

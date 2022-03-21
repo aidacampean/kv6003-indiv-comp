@@ -1,30 +1,15 @@
 @charset "UTF-8";
 /* gradient */
-.bootstrap-card {
-  box-shadow: 2px 1px 3px 1px rgba(216, 215, 215, 0.5);
-}
-
-.custom-card {
-  border: 1px dashed #ccc !important;
-  background-color: snow !important;
-}
-.custom-card .container {
-  padding: 2px 16px;
-}
-
-.btn-green {
-  background-color: #00686c;
-}
-
-a:hover {
-  background-color: #00686b;
-}
-
 .root {
   height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
+}
+
+.errors {
+  box-shadow: 0 0 5px 1px red;
+  color: red;
 }
 
 .nav-itema, .nav-item :hover, .nav-item :active, .nav-item :link, .nav-item :visited {
@@ -41,6 +26,43 @@ a:hover {
 
 .nav-item.active a {
   border-bottom: 1px solid white;
+}
+
+.dropdown-item.active a {
+  border-bottom: 1px solid grey;
+}
+
+.bootstrap-card {
+  box-shadow: 2px 1px 3px 1px rgba(216, 215, 215, 0.5);
+}
+
+.custom-card {
+  border: 1px dashed #ccc !important;
+  background-color: snow !important;
+}
+.custom-card .container {
+  padding: 2px 16px;
+}
+
+.green {
+  background-color: #00686c !important;
+}
+
+.green:hover {
+  background-color: #004346 !important;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  width: 500px;
+  height: 500px;
+  padding: 15px;
+  margin: auto;
+  box-shadow: 1px 1px 5px 1px rgba(138, 138, 138, 0.8);
+  /* offset-x | offset-y | blur-radius | spread-radius | color */
 }
 
 /*!

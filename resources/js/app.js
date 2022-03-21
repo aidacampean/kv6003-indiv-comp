@@ -36,6 +36,10 @@ window.Vue = require('vue').default;
 Vue.component('create-trip', require('./components/CreateTrip.vue').default);
 Vue.component('create-itinerary', require('./components/itinerary/CreateItinerary.vue').default);
 Vue.component('days', require('./components/itinerary/Days.vue').default);
+Vue.component('FormError', require('./components/FormError.vue').default);
+Vue.component('invite-users', require('./components/collaboration/Invite.vue').default);
+Vue.component('toast', require('./components/itinerary/Toast.vue').default);
+
 
 // vue
 // Vue.component('b-alert', BAlert);

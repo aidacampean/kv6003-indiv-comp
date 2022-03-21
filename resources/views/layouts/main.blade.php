@@ -23,7 +23,11 @@
         <div id="app">
             <header>
                 <div class="header d-flex flex-column flex-md-row align-items-center text-white background pt-3 px-md-4 box-shadow">
-                    <h5 class="my-0 mr-md-auto font-weight-normal">TravelPlanner</h5>
+                    <h5 class="nav-link my-0 mr-md-auto font-weight-normal">
+                        <a href="{{ route('home') }}">
+                            TravelPlanner
+                        </a>
+                    </h5>
                     <nav class="text-white my-2 my-md-0 mr-md-3 pt-2">
                         <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                             <li class="text-white nav-item text-center {{ $section == 'home' ? 'active' : '' }}">
@@ -53,11 +57,11 @@
                                 User
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">My Details</a>
+                                <a class="dropdown-item text-secondary {{ $section == 'my-account' ? 'active' : '' }}" href="{{ route('my-account') }}">My Account</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
-                                <a class="dropdown-item text center" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                <a class="dropdown-item text-secondary " href="{{ route('logout') }}" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                                 </a>

@@ -48,12 +48,14 @@
                         Edit
                     </a>
 
-                    <a class="text-white btn btn-green hover" href="{{ route('delete-trip', ['id' => $trip->id]) }}" onclick="return confirm('Are you sure?')">
+                    <a class="text-white btn green hover" href="{{ route('delete-trip', ['id' => $trip->id]) }}" onclick="return confirm('Are you sure?')">
                       
                       <!-- add trash icon -->
                       <i class="fas fa-trash"></i>
                         {!! 'Delete' !!}
                     </a>
+
+                    <a class="btn btn-primary">+ Invite people</a>
                   </div>
               </div>
             </div>

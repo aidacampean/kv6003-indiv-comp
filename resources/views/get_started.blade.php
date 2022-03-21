@@ -14,6 +14,5 @@
                     </b-row>
                 </b-container>
             </div>
-      
     </b-container>
 @endsection

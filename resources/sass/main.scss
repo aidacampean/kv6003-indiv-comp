@@ -2,10 +2,12 @@
 @import 'variables';
 
 //partials
-@import 'partials/homepage';
 @import 'partials/create_trip';
 @import 'partials/create_itinerary';
+@import 'partials/forms';
 @import 'partials/header';
+@import 'partials/homepage';
+@import 'partials/my_account';
 @import 'bootstrap_imports';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/solid';

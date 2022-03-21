@@ -1,12 +1,12 @@
 <template>
   <b-card>
-    <b-form name="create-trip" class="root justify-content-md-center" v-on:submit.prevent>
+    <b-form name="create-trip" class="root justify-content-md-center" v-on:submit.prevent>   
       <b-form-group
         id="input-group-1"
         label-for="input-1"
         class="mx-3 pt-4"
       >
-      
+       <FormError :errors="formErrors.city_id">
         <b-form-select
           size="lg"
           id="input-1"
@@ -14,7 +14,6 @@
           value-field="id"
           text-field="name"
           label="city"
-          class="form-control"
           required
         >
          <option :value="0">Please select a destination</option>
@@ -22,6 +21,7 @@
             {{ option.name }}
           </option>
         </b-form-select>
+       </FormError>
 
           <!-- <b-dropdown 
           id="input-1" 
@@ -36,6 +36,9 @@
           <b-dropdown-item>Bucharest</b-dropdown-item>
           <b-dropdown-item href="#">Something else here</b-dropdown-item>
       </b-dropdown> -->
+          <!-- <div v-show="errors.includes('destination')" class="mt-2 text-danger">
+             Please select the destination
+          </div> -->
        </b-form-group> 
 
       <b-form-group
@@ -43,15 +46,19 @@
         label-for="input-2"
         class="mx-3  pt-4"
       >
+
         <b-form-input
         size="lg"
           id="input-2"
           type="text"
           label="Trip Name"
           placeholder="Enter trip name"
-          required
           v-model="form.name"
         ></b-form-input>
+        <div v-show="form.name == '' && errors.name" class="mt-2 text-danger">
+          Please enter a name
+        </div>
+
 
       </b-form-group>
 
@@ -62,14 +69,16 @@
         class="mx-3"
       >
         <b-form-datepicker
-
           id="input-3"
           v-model="form.date_from"
-          :class="[{'form-error': errors.includes('date_from')}]"
+          required
         />
-      
-      </b-form-group>
 
+         <!-- <div class="errors" v-if="showError">{{ error }}</div>  -->
+        <!-- <div v-show="errors.includes('departure date')" class="mt-2 text-danger">
+          Please enter a departure date
+        </div> -->
+      </b-form-group>
       <b-form-group
         id="input-group-4"
         label="Arrival"
@@ -79,9 +88,10 @@
         <b-form-datepicker
           id="input-4"
           v-model="form.date_to"
-          :class="[{'form-error': errors.includes('date_to')}]"
           />
-      
+       <!-- <div v-show="errors.includes('departure date')" class="mt-2 text-danger">
+          Please enter an arrival date
+        </div> -->
       </b-form-group>
 
       <b-button
@@ -98,28 +108,64 @@
 </template>
 
 <script>
-    export default {
-      props: {
-        options: {
-          type: Array,
-          default: [{}],
-        }
-      },
-      data() {
-        return {
-          form: {
-            // default value is 'Please select ....'
-            city_id: '0',
-            name: '',
-            date_from: '',
-            date_to: '',
-          },
-          errors: [],
-          csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        }
-      },
-      methods: {
-        submitForm(){
+  import FormError from './FormError';
+  import ErrorMixin from './mixins/ErrorMixin';
+
+  export default {
+ components: {
+      'FormError': FormError
+    },
+    mixins:[ErrorMixin],
+    props: {
+      options: {
+        type: Array,
+        default: [{}],
+      }
+    },
+    data() {
+      return {
+        form: {
+          // default value is 'Please select ....'
+          city_id: '0',
+          name: '',
+          date_from: '',
+          date_to: '',
+        },
+        errors: {
+
+        },
+        csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        showError: false
+      }
+    },
+    methods: {
+      
+      submitForm(){
+
+        // this.errors = [];
+
+        //   if (this.form.city_id == 0) {
+        //     this.errors.push('destination');
+        //   }
+
+        //   if (!this.form.name) {
+        //     this.errors.push('name');
+        //   }
+
+        //   if (!this.form.date_from) {
+        //     this.errors.push('departure date');
+        //   }
+
+        //   if (!this.form.date_to) {
+        //     this.errors.push('arrival date');
+          
+        //   }
+
+        //   console.log(this.errors)
+
+
+        // if (this.errors.length == 0) {
+
           axios.post('/trip/store/', {
             'name': this.form.name,
             'city_id': this.form.city_id,
@@ -130,7 +176,12 @@
           }).catch(({response}) => {
             this.errors = response.data.errors
           })
-        }
+        // }
       }
     }
+  }
 </script>
+
+<style scoped>
+
+</style>
