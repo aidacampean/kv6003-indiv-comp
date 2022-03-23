@@ -8,12 +8,12 @@
 
         <div class="row justify-content-md-center pt-3">
             <div class="col-sm-9">
-                <input id="email" placeholder="Email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-                @error('email')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
+                <input id="username" placeholder="Username or email" type="username" class="form-control @if (session()->has('error')) is-invalid @endif" name="username" value="{{ old('username') }}" required autocomplete="username">
+                @if (session()->has('error'))
+                    <div class="text-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
             </div>
         </div>
         <div class="row justify-content-md-center pt-3">

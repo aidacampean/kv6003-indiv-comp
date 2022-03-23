@@ -2,6 +2,17 @@
 
 @section('content')
 <div class="p-5 container-fluid collaborate">
+
+    <a href="{{  route('itinerary', ['id' => $trips->id]) }}" class="btn btn-dark mb-3">
+        <i class="fa-solid fa-circle-left mr-2"></i>
+        Back to Itinerary
+    </a>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" aria-current="page">Home</li>
+            <li class="breadcrumb-item active" aria-current="page">Tester</li>
+        </ol>
+    </nav>
     <h2>Manage Collaboration for {{ $trips['name'] }}</h2>
     <hr>
     <div class="row">
@@ -12,14 +23,13 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
+                            <th scope="col">Username</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Manage</th>
                         </tr>
                     </thead>
                     <tbody>
-
-                        @empty($trips['collaborators'])
+                        @if ($trips->collaborators->count() == 0)
                             <tr>
                                 <td colspan="3">
                                     There are no collaborators for this trip
@@ -27,16 +37,20 @@
                             </tr>
                         @else
                             @foreach($trips['collaborators'] as $collaborator)
-                            <?php print_r($collaborator);?>
-
                             <tr>
-                                <td></td>
-                                <td></td>
+                                <td>{{ $collaborator['username'] }}</td>
                                 <td>{{ $collaborator['status'] }}</td>
+                                <td><a class="btn btn-danger" href="{{ route('destroy-collaborator', $collaborator['id']) }}">Remove</a></td>
                             </tr>
-
                             @endforeach
                         @endif
+
+                        @if (session()->has('success')) 
+                            <div role="alert alert-dismissible alert-danger" role="alert" aria-live="polite" aria-atomic="true">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
                     </tbody>
                 </table>
             </div>
@@ -59,13 +73,5 @@
             </div>
         </div>
     </div>
-
-    <p>
-        Manage Users - can see the users associated with the trip, assign tasks, revoke access
-    </p>
-
-    <p>
-        Send notification to users?
-    </p>
 </div>
 @endsection

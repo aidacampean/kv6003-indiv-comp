@@ -20,7 +20,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',
+        'username',
+        'password'
     ];
 
     /**
@@ -46,4 +47,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Trip::class);
     }
+
+    // public function collaborator()
+    // {
+    //     return $this->hasOne(Collaborator::class);
+    // }
+    
 }

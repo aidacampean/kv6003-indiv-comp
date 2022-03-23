@@ -45,8 +45,9 @@ Route::post('/account/store-details', [App\Http\Controllers\UserController::clas
 
 //collaboration
 Route::get('/trip/{id}/collaborate', [App\Http\Controllers\CollaborateController::class, 'index'])->name('collaborate');
-Route::get('/trip/{id}/invite', [App\Http\Controllers\CollaborateController::class, 'invite'])->name('invite');
-Route::post('/trip/{id}/invite', [App\Http\Controllers\CollaborateController::class, 'StoreInvite'])->name('store-invite');
+Route::get('/trip/{id}/collaborate/invite', [App\Http\Controllers\CollaborateController::class, 'invite'])->name('invite');
+Route::post('/trip/{id}/collaborate/invite', [App\Http\Controllers\CollaborateController::class, 'StoreInvite'])->name('store-invite');
+Route::get('/trip/{id}/collaborate/destroy', [App\Http\Controllers\CollaborateController::class, 'destroy'])->name('destroy-collaborator');
 
 // Route::get('/account', function () {
 //     return view('my_account');

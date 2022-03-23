@@ -15,14 +15,14 @@ class Collaborator extends Model
         'status',
     ];
 
-    public function user()
-    {
-        return $this->hasMany(User::class);
-    }
+    // public function trip()
+    // {
+    //     return $this->hasMany(Trip::class);
+    // }
 
-    public function trip()
-    {
-        return $this->hasMany(Trip::class);
-    }
+    // public function user()
+    // {
+    //     return $this->hasOne(User::class);
+    // }
 
 }

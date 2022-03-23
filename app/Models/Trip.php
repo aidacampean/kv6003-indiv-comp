@@ -36,10 +36,10 @@ class Trip extends Model
         'date_to' => 'date:Y-m-d',
     ];
 
-    public function user()
-    {
-        return $this->hasOne(User::class);
-    }
+    // public function users()
+    // {
+    //     return $this->hasMany(User::class);
+    // }
 
     public function events()
     {
@@ -56,8 +56,23 @@ class Trip extends Model
         return $this->hasOne(Itinerary::class);
     }
 
-    public function collaborators()
+    // public function collaborators()
+    // {
+    //     return $this->hasMany(Collaborator::class, 'user_id')
+    //                 ->join('collaborators', 'id', '=', 'users.id')
+    //                 ->select('users.*', 'collaborators.collaborator as laravel_through_key')
+    //                 ->get();
+    // }
+
+    public function collaborators() 
     {
         return $this->hasMany(Collaborator::class);
     }
+
+
+    public function collaboratorUser()
+    {
+        return $this->hasOneThrough(User::class, Collaborator::class, 'user_id', 'id');
+    }
+
 }

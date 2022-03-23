@@ -45,7 +45,7 @@ class InviteUser extends Mailable
     public function build()
     {
         return $this->markdown('emails.invite', [
-            'url' => 'http://localhost/',
+            'url' => route('register'),
             'user' => 'user',
             'trip' => 'trip',
             'invite_code' => $this->userInvitation->invite_code

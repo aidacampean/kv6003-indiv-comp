@@ -29,7 +29,7 @@ class HomeController extends Controller
             ->orderBy('date_from', 'asc')
             ->get();
 
-        return view('home',
+        return view('planner.home',
             [
                 'trips' => $trips,
                 'section' => 'home'

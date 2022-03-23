@@ -17,11 +17,13 @@ return new class extends Migration
             $table->id();
             $table->unsignedInteger('trip_id');
             $table->unsignedInteger('user_id');
+            $table->string('username')->unique();
             $table->enum('status', [
                 'active',
                 'declined',
                 'invited'
             ]);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

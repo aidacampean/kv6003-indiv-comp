@@ -59,7 +59,7 @@ class ItineraryController extends Controller
         //add the days to the itinerary
         $itinerary['days'] = $days;
            
-        return view('itinerary',
+        return view('planner.itinerary',
             [
                 'section' => 'create-trip',
                 'data' => $itinerary

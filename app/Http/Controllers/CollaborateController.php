@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Collaborator;
 use App\Models\Trip;
 use App\Models\User;
 use App\Models\UserInvitation;
@@ -31,17 +32,26 @@ class CollaborateController extends Controller
      */
     public function index(int $id)
     {
-        $trip = Trip::whereId($id)
+        $trips = Trip::whereId($id)
             ->whereUserId(Auth::id())
-            ->with('Collaborators')
-            //->with('Users')
-            ->firstOrFail()->toArray();
+            ->with('collaborators')
+            ->firstOrFail();
+         // dd($trips);
 
-            return view(
+            //->with('Users')
+
+             // $collaborators = Collaborator::whereTripId($id)
+        //     ->whereUserId(Auth::id())
+        //     ->with('Trip')
+        //     ->with('User')
+        //     ->with('User')
+        //     ->firstOrFail()->toArray();
+
+           return view(
                 'planner.collaborate',
             [
                 'section' => 'create-trip',
-                'trips' => $trip
+                'trips' => $trips
             ]
         );
     }
@@ -56,7 +66,7 @@ class CollaborateController extends Controller
         $trip = Trip::find($id)
             ->whereUserId(Auth::id())
             ->firstOrFail();
-
+            
         return view(
                 'planner.invite',
             [
@@ -74,7 +84,6 @@ class CollaborateController extends Controller
      */
     public function StoreInvite(Invitation $request, int $id)
     {
-
         // correction needed for the email address check so we need to ensure that an invite hasn't expired yet and is unique for this trip?
         $validated = $request->validated();
 
@@ -95,20 +104,23 @@ class CollaborateController extends Controller
                 // fix this
                 try {
                     Mail::to($request->user())->send(new InviteUser($invitation, $trip, $user));
-                    return redirect('/trip/' . $id . '/invite')->with('success', 'Invitation sent to ' . $validated['email']);
-                } catch (Exception $e) {
+                    return redirect(
+                        '/trip/' . $id . '/collaborate/invite')
+                            ->withSuccess('Invitation sent to ' . $validated['email']
+                    );
+                } catch (\Exception $e) {
                     return redirect()->back()
-                    ->withInput($request->input())
-                    ->with('error', 'Error message');
+                        ->withInput($request->input())
+                        ->withError('There was an error sending the email');
                 }
             }
         }
-
+        
         return redirect()->back()
             ->withInput($request->input())
-            ->with('error', 'Error message');
-        
+            ->withError('There was an error sending the email');
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -171,8 +183,17 @@ class CollaborateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        //
+        //check the resource exists
+        $collaborator = Collaborator::whereId($id)
+            ->firstOrFail();
+
+        //delete the resource and redirect with a success message if deleted
+        if ($collaborator->delete()) {
+            return redirect('/trip/' . $collaborator->trip_id . '/collaborate')->with('success', $collaborator->username . ' has been removed');
+        }
+
+        return redirect()->back()->with('error', 'Error message');
     }
 }

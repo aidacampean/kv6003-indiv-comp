@@ -27,6 +27,18 @@
                 @enderror
             </div>
         </div>
+
+        <div class="row justify-content-md-center pt-3">
+            <div class="col-sm-9">
+                <input id="username" placeholder="Username" type="username" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username">
+                @error('username')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+        </div>
+
         <div class="row justify-content-md-center pt-3">
             <div class="col-sm-9">
                 <input id="password" placeholder="Password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">

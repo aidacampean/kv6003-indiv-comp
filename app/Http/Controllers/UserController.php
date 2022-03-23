@@ -23,7 +23,8 @@ class UserController extends Controller
         return view('my_account',
             [
                 'section' => 'account',
-                'email' => $account['email'],
+                'email' => $account['email']
+                // 'username' => $account['username'],
             ]
         );
 
@@ -36,7 +37,8 @@ class UserController extends Controller
 
         if ($account) {
             $account->email = $validated['email'];
-            $account->password = Hash::make($validated['password']);
+            // $account->username = $validated['username'];
+            $account->password = $validated['password'];
         }
 
         if ($account->save()) {

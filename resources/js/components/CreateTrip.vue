@@ -1,11 +1,7 @@
 <template>
   <b-card>
     <b-form name="create-trip" class="root justify-content-md-center" v-on:submit.prevent>   
-      <b-form-group
-        id="input-group-1"
-        label-for="input-1"
-        class="mx-3 pt-4"
-      >
+      <b-col>
        <FormError :errors="formErrors.city_id">
         <b-form-select
           size="lg"
@@ -22,6 +18,7 @@
           </option>
         </b-form-select>
        </FormError>
+      </b-col>
 
           <!-- <b-dropdown 
           id="input-1" 
@@ -39,16 +36,17 @@
           <!-- <div v-show="errors.includes('destination')" class="mt-2 text-danger">
              Please select the destination
           </div> -->
-       </b-form-group> 
+
+       <!-- </b-form-group> 
 
       <b-form-group
         id="input-group-2"
         label-for="input-2"
-        class="mx-3  pt-4"
-      >
-
+        class="mx-3 mt-4"
+      > -->
+    <b-col>
         <b-form-input
-        size="lg"
+          size="lg"
           id="input-2"
           type="text"
           label="Trip Name"
@@ -58,50 +56,63 @@
         <div v-show="form.name == '' && errors.name" class="mt-2 text-danger">
           Please enter a name
         </div>
-
-
-      </b-form-group>
+    </b-col>
+      <!-- </b-form-group>
 
       <b-form-group
         id="input-group-3"
         label="Departure"
         label-for="input-3"
-        class="mx-3"
-      >
+        class="mx-3 "
+      > -->
+       <b-col>
         <b-form-datepicker
           id="input-3"
           v-model="form.date_from"
           required
+          :min="min"
+          :max="max"
+          size="lg"
         />
+       </b-col>
 
          <!-- <div class="errors" v-if="showError">{{ error }}</div>  -->
         <!-- <div v-show="errors.includes('departure date')" class="mt-2 text-danger">
           Please enter a departure date
         </div> -->
-      </b-form-group>
+
+      <!-- </b-form-group>
       <b-form-group
         id="input-group-4"
         label="Arrival"
         label-for="input-4"
         class="mx-3"
-      >
+      > -->
+       <b-col>
         <b-form-datepicker
           id="input-4"
           v-model="form.date_to"
-          />
+          required
+          :min="min"
+          :max="max"
+          size="lg"
+        />
+       </b-col>
        <!-- <div v-show="errors.includes('departure date')" class="mt-2 text-danger">
           Please enter an arrival date
         </div> -->
-      </b-form-group>
 
+    <b-col>
       <b-button
+      size="lg"
         type="submit"
         variant="dark"
-        class="mx-3 mt-4"
         @click="submitForm"
       >
         Plan your trip
       </b-button>
+    </b-col>
+
       <input type="hidden" name="_token" :value="csrf" />
     </b-form>
   </b-card>
@@ -123,6 +134,16 @@
       }
     },
     data() {
+      const now = new Date()
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+      // 15th two months prior
+      const minDate = new Date(today)
+      minDate.setMonth(minDate.getMonth() - 2)
+      minDate.setDate(15)
+      // 15th in two months
+      const maxDate = new Date(today)
+      maxDate.setMonth(maxDate.getMonth() + 2)
+      maxDate.setDate(15)
       return {
         form: {
           // default value is 'Please select ....'
@@ -134,6 +155,8 @@
         errors: {
 
         },
+        min: minDate,
+        max: maxDate,
         csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         showError: false
       }
@@ -183,5 +206,12 @@
 </script>
 
 <style scoped>
+.card {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    height: 100%;
+    width:100%;
+    align-items: center;
 
+}
 </style>

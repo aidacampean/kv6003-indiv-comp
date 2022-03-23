@@ -20,7 +20,7 @@ class Itinerary extends Model
         'date_from',
         'date_to',
         'budget'
-    ]
+    ];
     
     public function trip()
     {

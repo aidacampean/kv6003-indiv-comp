@@ -36,7 +36,7 @@ class TripController extends Controller
     {
         $cities = City::all()->toArray();
 
-        return view('create_trip',
+        return view('planner.create_trip',
             [
                 'section' => 'create-trip',
                 'data' => $cities
