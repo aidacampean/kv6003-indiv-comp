@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Http\Requests\StoreEmail;
+use App\Http\Requests\StorePassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -23,14 +24,14 @@ class UserController extends Controller
         return view('my_account',
             [
                 'section' => 'account',
-                'email' => $account['email']
+                'account' => $account
                 // 'username' => $account['username'],
             ]
         );
 
     }
 
-    public function store(StoreEmail $request)
+    public function storeEmail(StoreEmail $request)
     {
         $validated = $request->validated();
         $account = User::whereId(Auth::id())->firstOrFail();
@@ -38,7 +39,23 @@ class UserController extends Controller
         if ($account) {
             $account->email = $validated['email'];
             // $account->username = $validated['username'];
-            $account->password = $validated['password'];
+        }
+
+        if ($account->save()) {
+            return redirect()->back();
+        }
+
+        return response('error', 500);
+
+    }
+
+    public function storePassword(StorePassword $request)
+    {
+        $validated = $request->validated();
+        $account = User::whereId(Auth::id())->firstOrFail();
+
+        if ($account) {
+            $account->password = Hash::make($validated['new_password']);
         }
 
         if ($account->save()) {

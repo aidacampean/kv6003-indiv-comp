@@ -53,14 +53,13 @@
 }
 
 .center {
-  display: flex;
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
-  width: 700px;
-  height: 600px;
+  width: 600px;
+  height: 500px;
   padding: 15px;
-  margin: auto;
+  margin-left: 200px;
   box-shadow: 1px 1px 5px 1px rgba(138, 138, 138, 0.8);
   /* offset-x | offset-y | blur-radius | spread-radius | color */
 }

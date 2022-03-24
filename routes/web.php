@@ -41,7 +41,8 @@ Route::post('/trip/update-event/{id}', [App\Http\Controllers\EventController::cl
 
 // my account
 Route::get('/account', [App\Http\Controllers\UserController::class, 'index'])->name('my-account');
-Route::post('/account/store-details', [App\Http\Controllers\UserController::class, 'store'])->name('store-details');
+Route::post('/account/store-email', [App\Http\Controllers\UserController::class, 'storeEmail'])->name('store-email');
+Route::post('/account/store-password', [App\Http\Controllers\UserController::class, 'storePassword'])->name('store-password');
 
 //collaboration
 Route::get('/trip/{id}/collaborate', [App\Http\Controllers\CollaborateController::class, 'index'])->name('collaborate');

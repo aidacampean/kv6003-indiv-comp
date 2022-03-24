@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\MatchOldPassword;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class StoreEmail extends FormRequest
+class StorePassword extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +27,10 @@ class StoreEmail extends FormRequest
     {
         return [
             // db columns
-            'email' => 'required|string|unique:users'
+            'current_password' => ['required', new MatchOldPassword],
+            'new_password' => 'required|string',
+            'confirm_new_password' => 'same:new_password'
         ];
     }
 }
+
