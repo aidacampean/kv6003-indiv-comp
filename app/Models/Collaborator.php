@@ -25,4 +25,10 @@ class Collaborator extends Model
     //     return $this->hasOne(User::class);
     // }
 
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'id', 'trip_id')->where('tasks.collaborator_id', '=', 'collaborators.user_id');
+        #return $this->hasMany(Task::class)->where('collaborator_id', '=', 'user_id');
+    }
+
 }

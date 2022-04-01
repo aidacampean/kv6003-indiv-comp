@@ -7,7 +7,7 @@ use App\Models\Trip;
 use App\Models\User;
 use App\Models\UserInvitation;
 use App\Mail\InviteUser;
-use App\Http\Requests\Invitation;
+use App\Http\Requests\SendInvitation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +36,7 @@ class CollaborateController extends Controller
             ->whereUserId(Auth::id())
             ->with('collaborators')
             ->firstOrFail();
-         // dd($trips);
+         //dd($trips);
 
             //->with('Users')
 
@@ -82,7 +82,7 @@ class CollaborateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function StoreInvite(Invitation $request, int $id)
+    public function StoreInvite(SendInvitation $request, int $id)
     {
         // correction needed for the email address check so we need to ensure that an invite hasn't expired yet and is unique for this trip?
         $validated = $request->validated();
@@ -104,10 +104,9 @@ class CollaborateController extends Controller
                 // fix this
                 try {
                     Mail::to($request->user())->send(new InviteUser($invitation, $trip, $user));
-                    return redirect(
-                        '/trip/' . $id . '/collaborate/invite')
-                            ->withSuccess('Invitation sent to ' . $validated['email']
-                    );
+                    return redirect('/trip/' . $id . '/invite')
+                            ->withSuccess('Invitation sent to ' . $validated['email']);
+
                 } catch (\Exception $e) {
                     return redirect()->back()
                         ->withInput($request->input())

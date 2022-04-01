@@ -9,7 +9,7 @@
     </a>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item" aria-current="page">Home</li>
+            <a class="breadcrumb-item" href="{{ route('home') }}">Home</a>
             <li class="breadcrumb-item active" aria-current="page">Tester</li>
         </ol>
     </nav>

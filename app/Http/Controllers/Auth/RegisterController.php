@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
+use App\Models\Collaborator;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+// use Egulias\EmailValidator\Validation\RFCValidation;
+// use Egulias\EmailValidator\Validation\DNSCheckValidation;
+
+
 
 class RegisterController extends Controller
 {
@@ -50,10 +55,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name' => ['required', 'string', 'min:5','max:30'],
+            'email' => ['required', 'email', 'string', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'min:5' ,'max:20', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'max:30', 'confirmed'],
+            'invite-code' => ['nullable', 'string', 'exists:user_invitations,invite_code,email_address,' . $data['email'] . '']
         ]);
     }
 
@@ -65,11 +71,28 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'username' => $data['username'],
             'password' => Hash::make($data['password']),
         ]);
+
+        if ($user->save()) {
+            //if the user used an invite code during registration, we need to perform additional tasks
+            if ($data['invite-code']) {
+                $invite = UserInvitation::whereInviteCode($data['invite-code'])
+                    ->whereEmailAddress($data['email'])
+                    ->first('trip_id');
+
+                Collaborator::create([
+                    'user_id' => $user->id,
+                    'trip_id' => $invite['trip_id'],
+                    'status' => 'active'
+                ]);
+            }
+        }
+
+        return $user;
     }
 }

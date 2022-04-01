@@ -22,19 +22,9 @@ class TripController extends Controller
         $this->middleware('auth');
     }
 
-    // public function index()
-    // {
-    //     $trips = Trip::whereUserId(Auth::id())->get();
-    //     return view('planTrip',
-    //         [
-    //             'section' => 'planTrip'
-    //         ]
-    //     );
-    // }
-
     public function create()
     {
-        $cities = City::all()->toArray();
+        $cities = City::all('id', 'name')->toArray();
 
         return view('planner.create_trip',
             [
@@ -47,7 +37,6 @@ class TripController extends Controller
     public function store(StoreTrip $request)
     {   
         $validated = $request->validated();
-        //dd($request->user('api'));
         $trip = Trip::create([
             'name' => $validated['name'],
             'user_id' => Auth::id(),
@@ -58,8 +47,6 @@ class TripController extends Controller
 
         if ($trip->save()) {
             return response()->json(['success' => true, 'id' => $trip->id], 200);
-            //return redirect('/trip/' . $id . '/itinerary/');
-            //return response('success', Response::HTTP_CREATED);
         }
 
         return response('error', 500);

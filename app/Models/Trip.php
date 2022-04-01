@@ -75,4 +75,9 @@ class Trip extends Model
         return $this->hasOneThrough(User::class, Collaborator::class, 'user_id', 'id');
     }
 
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
 }

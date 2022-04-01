@@ -55,6 +55,7 @@ services:
     networks:
       - app-network
  
+  #PHPMyAdmin Service
   phpmyadmin:
     depends_on:
       - db
@@ -70,6 +71,7 @@ services:
     networks:
       - app-network
  
+  #Mailhog Service
   mailhog:
     image: mailhog/mailhog
     container_name: mailhog

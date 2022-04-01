@@ -1,217 +1,147 @@
 <template>
-  <b-card>
-    <b-form name="create-trip" class="root justify-content-md-center" v-on:submit.prevent>   
-      <b-col>
-       <FormError :errors="formErrors.city_id">
-        <b-form-select
-          size="lg"
-          id="input-1"
-          v-model="form.city_id"
-          value-field="id"
-          text-field="name"
-          label="city"
-          required
-        >
-         <option :value="0">Please select a destination</option>
-          <option :key="option.id" v-for="option in options" :value="option.id">
-            {{ option.name }}
-          </option>
-        </b-form-select>
-       </FormError>
-      </b-col>
+  <b-card class="sm position-relative">
+    <b-form name="create-trip" class="root justify-content-sm-center" v-on:submit.prevent>
+      <b-row class="fixed">
+        <b-col class="mx-md-2 pb-md-3">
+          <label for="city">City</label>
+            <b-form-select
+              id="city"
+              v-model="form.city_id"
+              value-field="id"
+              text-field="name"
+              class="form-control"
+              :state="changeState('city_id')"
+            >
+              <option :value="0">Please select a destination</option>
+              <option v-for="option in options" :key="option.id" :value="option.id">
+                {{ option.name }}
+              </option>
+            </b-form-select>
 
-          <!-- <b-dropdown 
-          id="input-1" 
-          text="Destination" 
-          variant="light" 
-          class="m-2"
-          v-model="form.destination"
-          :options="destination"
-          required
-      >
-          <b-dropdown-item>Cluj</b-dropdown-item>
-          <b-dropdown-item>Bucharest</b-dropdown-item>
-          <b-dropdown-item href="#">Something else here</b-dropdown-item>
-      </b-dropdown> -->
-          <!-- <div v-show="errors.includes('destination')" class="mt-2 text-danger">
-             Please select the destination
-          </div> -->
+          <b-form-invalid-feedback id="city-feedback">
+            Please select a city
+          </b-form-invalid-feedback>
+        </b-col>
 
-       <!-- </b-form-group> 
+        <b-col class="mx-md-2 pb-md-3">
+            <label for="tripName">Trip Name</label>
+            <b-form-input
+              id="trip-name"
+              type="text"
+              placeholder="Enter trip name"
+              v-model="form.name"
+              :state="changeState('name')"
+            ></b-form-input>
+            <b-form-invalid-feedback id="trip-name-feedback">
+              Please enter a trip name
+            </b-form-invalid-feedback>
+        </b-col>
 
-      <b-form-group
-        id="input-group-2"
-        label-for="input-2"
-        class="mx-3 mt-4"
-      > -->
-    <b-col>
-        <b-form-input
-          size="lg"
-          id="input-2"
-          type="text"
-          label="Trip Name"
-          placeholder="Enter trip name"
-          v-model="form.name"
-        ></b-form-input>
-        <div v-show="form.name == '' && errors.name" class="mt-2 text-danger">
-          Please enter a name
-        </div>
-    </b-col>
-      <!-- </b-form-group>
+        <b-col  class="mx-md-2 pb-md-3">
+          <label for="date-from">Date From</label>
+          <b-form-datepicker
+            id="date-from"
+            v-model="form.date_from"
+            :min="min"
+            hide-header
+            :state="changeState('date_from')"
+          />
+          <b-form-invalid-feedback id="date-from-feedback">
+            Please enter a departure date
+          </b-form-invalid-feedback>
+        </b-col>
 
-      <b-form-group
-        id="input-group-3"
-        label="Departure"
-        label-for="input-3"
-        class="mx-3 "
-      > -->
-       <b-col>
-        <b-form-datepicker
-          id="input-3"
-          v-model="form.date_from"
-          required
-          :min="min"
-          :max="max"
-          size="lg"
-        />
-       </b-col>
+        <b-col sm=3 class="mx-md-2 pb-md-3">
+          <label for="date-to">Date To</label>
+          <b-form-datepicker
+            id="date-to"
+            v-model="form.date_to"
+            :disabled="form.date_from == ''"
+            :min="form.date_from"
+            :max="maxDays()"
+            :state="changeState('date_to')"
+            hide-header
+          />
+          <b-form-invalid-feedback id="date-to-feedback">
+            Please select an arrival date
+          </b-form-invalid-feedback>
+        </b-col>
+      </b-row>
 
-         <!-- <div class="errors" v-if="showError">{{ error }}</div>  -->
-        <!-- <div v-show="errors.includes('departure date')" class="mt-2 text-danger">
-          Please enter a departure date
-        </div> -->
-
-      <!-- </b-form-group>
-      <b-form-group
-        id="input-group-4"
-        label="Arrival"
-        label-for="input-4"
-        class="mx-3"
-      > -->
-       <b-col>
-        <b-form-datepicker
-          id="input-4"
-          v-model="form.date_to"
-          required
-          :min="min"
-          :max="max"
-          size="lg"
-        />
-       </b-col>
-       <!-- <div v-show="errors.includes('departure date')" class="mt-2 text-danger">
-          Please enter an arrival date
-        </div> -->
-
-    <b-col>
-      <b-button
-      size="lg"
-        type="submit"
-        variant="dark"
-        @click="submitForm"
-      >
-        Plan your trip
-      </b-button>
-    </b-col>
-
+      <b-row class="mt-md-2 mx-md-4">
+        <b-col sm=9>
+          <b-button
+          class=""
+            type="submit"
+            variant="dark"
+            @click="submitForm"
+          >
+            Plan your trip
+          </b-button>
+        </b-col>
+      </b-row>
       <input type="hidden" name="_token" :value="csrf" />
     </b-form>
   </b-card>
 </template>
 
 <script>
-  import FormError from './FormError';
-  import ErrorMixin from './mixins/ErrorMixin';
+  import moment from 'moment';
 
   export default {
- components: {
-      'FormError': FormError
-    },
-    mixins:[ErrorMixin],
     props: {
       options: {
         type: Array,
-        default: [{}],
+        default: [],
       }
     },
     data() {
-      const now = new Date()
-      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-      // 15th two months prior
-      const minDate = new Date(today)
-      minDate.setMonth(minDate.getMonth() - 2)
-      minDate.setDate(15)
-      // 15th in two months
-      const maxDate = new Date(today)
-      maxDate.setMonth(maxDate.getMonth() + 2)
-      maxDate.setDate(15)
       return {
         form: {
-          // default value is 'Please select ....'
-          city_id: '0',
+          city_id: 0,
           name: '',
           date_from: '',
           date_to: '',
         },
-        errors: {
-
-        },
-        min: minDate,
-        max: maxDate,
+        test: '',
+        min: moment().format('YYYY-MM-DD'),
+        errors: [],
         csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         showError: false
       }
     },
     methods: {
-      
+      changeState(field) {
+          return this.errors.hasOwnProperty(field) ? false : null;
+      },
+      maxDays() {
+          if (this.form.date_from.length > 0) {
+           return moment(this.form.date_from, "YYYY-MM-DD").add(14, 'days').format('YYYY-MM-DD');
+          }
+          return this.min;
+      },
       submitForm(){
-
-        // this.errors = [];
-
-        //   if (this.form.city_id == 0) {
-        //     this.errors.push('destination');
-        //   }
-
-        //   if (!this.form.name) {
-        //     this.errors.push('name');
-        //   }
-
-        //   if (!this.form.date_from) {
-        //     this.errors.push('departure date');
-        //   }
-
-        //   if (!this.form.date_to) {
-        //     this.errors.push('arrival date');
-          
-        //   }
-
-        //   console.log(this.errors)
-
-
-        // if (this.errors.length == 0) {
-
-          axios.post('/trip/store/', {
-            'name': this.form.name,
-            'city_id': this.form.city_id,
-            'date_from': this.form.date_from,
-            'date_to': this.form.date_to,
-          }).then(({data})=> {
-            window.location.href = "/trip/" + data.id + "/itinerary"
-          }).catch(({response}) => {
-            this.errors = response.data.errors
-          })
-        // }
+        axios.post('/trip/store/', {
+          'name': this.form.name,
+          'city_id': this.form.city_id,
+          'date_from': this.form.date_from,
+          'date_to': this.form.date_to,
+        }).then(({data})=> {
+          window.location.href = "/trip/" + data.id + "/itinerary"
+        }).catch(({response}) => {
+          this.errors = response.data.errors
+        })
       }
     }
   }
 </script>
 
 <style scoped>
-.card {
-    padding-top: 40px;
-    padding-bottom: 40px;
-    height: 100%;
-    width:100%;
-    align-items: center;
-
-}
+  .fixed {
+      padding-top: 40px;
+      padding-bottom: 40px;
+      height: 200px;
+      width:75%;
+      align-items: center;
+  }
 </style>

@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
+// Form requests are custom request classes that encapsulate their own validation and authorization logic.
 class StoreLogin extends FormRequest
 {
     /**

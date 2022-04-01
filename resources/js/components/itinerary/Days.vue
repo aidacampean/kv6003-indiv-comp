@@ -15,9 +15,45 @@
                 >
                 Flights
               </a>
-              <a class="nav-link" id="nav-hotel-tab" data-toggle="tab" href="#nav-hotels" role="tab" aria-controls="nav-hotels" aria-selected="false" @click="setEvent('hotel')">Hotel</a>
-              <a class="nav-link" id="nav-excursions-tab" data-toggle="tab" href="#nav-excursions" role="tab" aria-controls="nav-excursions" aria-selected="false" @click="setEvent('excursion')">Excursions</a>
-              <a class="nav-link disabled" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-other" aria-selected="false" @click="setEvent('other')">Other</a>
+
+              <a 
+                class="nav-link" 
+                id="nav-hotel-tab" 
+                data-toggle="tab" 
+                href="#nav-hotels" 
+                role="tab" 
+                aria-controls="nav-hotels" 
+                aria-selected="false" 
+                @click="setEvent('hotel')"
+                >
+                Hotel
+              </a>
+
+              <a 
+                class="nav-link"
+                id="nav-excursions-tab" 
+                data-toggle="tab"
+                href="#nav-excursions" 
+                role="tab" 
+                aria-controls="nav-excursions" 
+                aria-selected="false" 
+                @click="setEvent('excursion')"
+                >
+                Excursions
+              </a>
+              
+              <a 
+                class="nav-link disabled" 
+                id="nav-contact-tab"
+                data-toggle="tab" 
+                href="#nav-contact" 
+                role="tab"
+                aria-controls="nav-other" 
+                aria-selected="false"
+                @click="setEvent('other')"
+                >
+                Other
+              </a>
             </div>
         </nav>
 

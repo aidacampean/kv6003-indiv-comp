@@ -51,17 +51,16 @@ class LoginController extends Controller
 
     public function login(StoreLogin $request)
     {
-        // $login = request()->input('login');
- 
-        // $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
- 
-        // request()->merge([$fieldType => $login]);
- 
-        // return $fieldType;
+        
         $input = $request->all();
         $validated = $request->validated();
+
+        //check if remember me checkbos is ticket or not
+        $rememberMe = $request->has('remember') ? true : false; 
+
         $fieldType = filter_var($validated['username'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-        if(auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password'])))
+
+        if (auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password']), $rememberMe))
         {
             return redirect()->route('home');
         }else{
@@ -70,6 +69,5 @@ class LoginController extends Controller
         }
           
     }
-        //dd($request->user('api'));
           
 }
