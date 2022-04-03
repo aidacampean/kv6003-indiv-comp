@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Collaborator;
 use App\Models\Trip;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -25,14 +25,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $trips = Trip::whereUserId(Auth::id())
+        $userId = Auth::id();
+
+        $trips = Trip::with('usertrips')
+            ->whereHas('usertrips', function($q) {
+                $q->where('user_trips.user_id', '=', Auth::id());
+            })
             ->orderBy('date_from', 'asc')
-            ->get();
+            ->get()->toArray();
 
         return view('planner.home',
             [
                 'trips' => $trips,
-                'section' => 'home'
+                'section' => 'home',
+                'user_id' => $userId
             ]
         );
     }

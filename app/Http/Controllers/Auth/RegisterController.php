@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Collaborator;
 use App\Models\User;
 use App\Models\UserInvitation;
+use App\Models\UserTrip;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -85,11 +86,11 @@ class RegisterController extends Controller
                 $invite = UserInvitation::whereInviteCode($data['invite-code'])
                     ->whereEmailAddress($data['email'])
                     ->first('trip_id');
-
-                Collaborator::create([
+        
+                UserTrip::create([
                     'user_id' => $user->id,
                     'trip_id' => $invite['trip_id'],
-                    'status' => 'active'
+                    'role' => 'collaborator'
                 ]);
             }
         }

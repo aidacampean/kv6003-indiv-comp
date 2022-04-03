@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTrip;
 use App\Models\City;
 use App\Models\Trip;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Models\UserTrip;
 use Illuminate\Support\Facades\Auth;
 use Session;
 
@@ -46,6 +45,12 @@ class TripController extends Controller
         ]);
 
         if ($trip->save()) {
+            UserTrip::create([
+                'trip_id' => $trip->id,
+                'user_id' => Auth::id(),
+                'role' => 'admin'
+            ]);
+
             return response()->json(['success' => true, 'id' => $trip->id], 200);
         }
 
@@ -73,15 +78,18 @@ class TripController extends Controller
     {
         $trip = Trip::whereId($id)->firstOrFail();
 
-        if ($trip) {
-            // find trip by id and delete if found
-            $trip->delete();
-        }
+        if ($this->authorize('delete', $trip)) {
 
-        // if trip is deleted redirect the user to the same page and display a message
-        if ($trip->trashed()) {
-            return redirect('/home')->with('success', 'Your ' . $trip->name . ' has been deleted');
-        }
+            if ($trip) {
+                // find trip by id and delete if found
+                $trip->delete();
+            }
 
+            // if trip is deleted redirect the user to the same page and display a message
+            if ($trip->trashed()) {
+                return redirect('/home')->with('success', 'Your ' . $trip->name . ' has been deleted');
+            }
+
+        }
     }
 }

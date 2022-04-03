@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Trip;
+use App\Models\Collaborator;
 use App\Models\Itinerary;
+use App\Models\Trip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreItinerary;
@@ -31,7 +32,9 @@ class ItineraryController extends Controller
     public function index(int $id)
     {
         $itinerary = Trip::whereId($id)
-            ->whereUserId(Auth::id())
+            ->whereHas('usertrips', function($q) {
+                $q->where('user_trips.user_id', '=', Auth::id());
+            })
             ->with('Events:id,trip_id,name,description,date')  //limit the selected columns
             ->firstOrFail()->toArray();
 

@@ -31,4 +31,14 @@ class Collaborator extends Model
         #return $this->hasMany(Task::class)->where('collaborator_id', '=', 'user_id');
     }
 
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
+
+    public function trip()
+    {
+        return $this->hasOne(Trip::class, 'id', 'trip_id');
+    }
+
 }

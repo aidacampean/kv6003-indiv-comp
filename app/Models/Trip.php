@@ -80,4 +80,9 @@ class Trip extends Model
         return $this->hasMany(Task::class);
     }
 
+    public function userTrips()
+    {
+        return $this->hasMany(UserTrip::class, 'trip_id', 'id');
+    }
+
 }

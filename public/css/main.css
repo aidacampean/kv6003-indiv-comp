@@ -36,15 +36,17 @@
   border-bottom: 1px solid grey;
 }
 
-.bootstrap-card {
+.existing-trip {
   box-shadow: 2px 1px 3px 1px rgba(216, 215, 215, 0.5);
+  min-height: 250px;
+  width: auto;
 }
 
-.custom-card {
+.add-trip-card {
   border: 1px dashed #ccc !important;
   background-color: snow !important;
 }
-.custom-card .container {
+.add-trip-card .container {
   padding: 2px 16px;
 }
 
@@ -56,16 +58,17 @@
   background-color: #004346 !important;
 }
 
-.center {
+.display-center {
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
-  width: 600px;
+  width: 500px;
   height: 500px;
   padding: 15px;
   margin-left: 200px;
-  box-shadow: 1px 1px 5px 1px rgba(138, 138, 138, 0.8);
-  /* offset-x | offset-y | blur-radius | spread-radius | color */
+  box-shadow: 2px 1px 3px 1px rgba(216, 215, 215, 0.5);
+  margin: 0 auto;
+  float: none;
 }
 
 /*!
