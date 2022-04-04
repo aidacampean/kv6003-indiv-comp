@@ -29,7 +29,8 @@ class StoreEvent extends FormRequest
             'id' => 'integer',
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'date' => 'required|date'
+            'date' => 'required|date',
+            'notes' => 'nullable|string'
         ];
     }
 }

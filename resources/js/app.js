@@ -39,6 +39,7 @@ Vue.component('days', require('./components/itinerary/Days.vue').default);
 Vue.component('drag-and-drop', require('./components/collaboration/DragAndDrop.vue').default);
 Vue.component('FormError', require('./components/FormError.vue').default);
 Vue.component('toast', require('./components/itinerary/Toast.vue').default);
+//Vue.component('summary', require('./components/itinerary/Summary.vue').default);
 Vue.component('users', require('./components/collaboration/Users.vue').default);
 
 

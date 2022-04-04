@@ -66,6 +66,7 @@ class EventController extends Controller
             'name' => $validated['name'],
             'description' => $validated['description'],
             'date' => $validated['date'],
+            'notes' => $validated['notes']
         ]);
 
         if ($event->save()) {
@@ -115,6 +116,7 @@ class EventController extends Controller
         if ($event) {
             $event->name = $validated['name'];
             $event->description = $validated['description'];
+            $event->notes = $validated['notes'];
         }
 
         if ($event->save()) {

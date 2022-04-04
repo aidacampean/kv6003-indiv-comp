@@ -5,7 +5,6 @@
     <hr>
     
     <b-row class="horizontal">
-
       <!-- <days v-for="(day, index) in days" :key="index" :type="trip" :id="day" /> -->
       <days
         v-for="(day, key, index) in trip.days"

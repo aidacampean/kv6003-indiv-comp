@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('trip_id');
             $table->string('name')->nullable(false);
             $table->longText('description')->nullable(true);
+            $table->longText('notes')->nullable(true);
             $table->timestamp('date');
             $table->timestamps();
         });
