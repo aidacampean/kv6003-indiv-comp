@@ -171,11 +171,13 @@
         </div>
       </b-modal>
 
-    <!-- <b-modal :id="date" size="xl" title="Day Summary">
+    <b-modal :id="date" size="lg" scrollable hide-header>
+      <h2>{{ 'DAY SUMMARY' }}</h2>
+      <div class="mt-2"><h5>{{ 'DATE: ' }} {{ date | formatDate }}</h5></div>
       <day-summary 
       :data="events"
       />
-    </b-modal> -->
+    </b-modal>
  
     <b-button
       variant="green"
@@ -183,11 +185,11 @@
       size="lg"
       @click="$bvModal.show(date);"
     >
-      {{ 'Day ' + counter + ' - '  }} {{ date | formatDate }}
+      {{ 'DAY ' + counter + ' - '  }} {{ date | formatDate }}
     </b-button>
 
     <button class="add-event" @click="addModal(modalId)">
-      + Add
+      + ADD
     </button>
     <b-card class="m-2" v-for="(event, index) in eventsData" :key="event.id" >
       <a href="#" class="disabled-link" @click="updateModal(index);">{{ event.description }}</a>

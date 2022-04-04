@@ -2,6 +2,11 @@
     box-shadow: 2px 1px 3px 1px rgba(216, 215, 215, 0.5);
     min-height: 250px;
     width:auto;
+
+    .card-footer {
+        // background: #fff !important;
+        border-top: 0 !important;
+    }
 }
 .add-trip-card {
     border: 1px dashed #ccc !important;

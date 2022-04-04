@@ -25,7 +25,7 @@
                 <div class="header d-flex flex-column flex-md-row align-items-center text-white background pt-3 px-md-4 box-shadow">
                     <h5 class="nav-link my-0 mr-md-auto font-weight-normal">
                         <a href="{{ route('home') }}">
-                            TravelPlanner
+                            TRAVELPLANNER
                         </a>
                     </h5>
                     <nav class="text-white my-2 my-md-0 mr-md-3 pt-2">

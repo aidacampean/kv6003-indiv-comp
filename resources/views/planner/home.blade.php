@@ -8,7 +8,7 @@
     </div>
     @endif
 
-    <div>
+    
       <h1 class="mt-5">My Trips</h1>
       <hr>
 
@@ -45,26 +45,25 @@
                         Depart: {{ $trip['date_from'] }} </br>
                         Arrive: {{ $trip['date_to'] }}
                       </div>
-                      <div class="mt-3 mb-1 clearfix">
-                        <div class="float-right">
-                        <a class="mt-2 text-white btn btn-secondary" href="{{ route('itinerary', ['id' => $trip['id']]) }}">
-                              <i class="fas fa-edit"></i>
-                              Plan
-                          </a>
+                  </div>
+                  <div class="card-footer text-center">
+                      <a class="mt-2 text-white btn btn-secondary" href="{{ route('itinerary', ['id' => $trip['id']]) }}">
+                          <i class="fas fa-edit"></i>
+                          Plan
+                      </a>
 
-                          @if ($isOwner)
-                          <a class="mt-2 text-white btn btn-secondary" href="{{ route('collaborate', ['id' => $trip['id']]) }}">
-                              <i class="fa-solid fa-people-group"></i>
-                              Manage
-                          </a>
+                      @if ($isOwner)
+                        <a class="mt-2 text-white btn btn-secondary" href="{{ route('collaborate', ['id' => $trip['id']]) }}">
+                            <i class="fa-solid fa-people-group"></i>
+                            Manage
+                        </a>
 
-                            <a class="mt-2 text-white btn btn-secondary hover" href="{{ route('delete-trip', ['id' => $trip['id']]) }}" onclick="return confirm('Are you sure?')">
-                              <i class="fas fa-trash"></i>
-                                {!! 'Delete' !!}
-                            </a>
-                          @endif
-                        </div>
-                      </div>
+                          <a class="mt-2 text-white btn btn-secondary hover" href="{{ route('delete-trip', ['id' => $trip['id']]) }}" onclick="return confirm('Are you sure?')">
+                            <i class="fas fa-trash"></i>
+                              {!! 'Delete' !!}
+                          </a>
+                      @endif
+                    </div>
                   </div>
                 </div>
               </div>
@@ -72,6 +71,6 @@
         @endif
 
       </div>
-    </div>
+    
   </div>
 @endsection
