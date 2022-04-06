@@ -16,9 +16,9 @@ class TripPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function view(User $user, Trip $trip)
     {
-        //
+       // return $user->id === $trip->user_id;
     }
 
     /**
@@ -29,9 +29,10 @@ class TripPolicy
      * @return \Illuminate\Auth\Access\Response|bool
      */
 
-    public function view(User $user, Trip $trip)
+    public function store(User $user, Trip $trip)
     {
         //
+        return $user->id === $trip->user_id;
     }
 
     /**
@@ -55,6 +56,6 @@ class TripPolicy
      */
     public function delete(User $user, Trip $trip)
     {
-        //
+        return $user->id === $trip->user_id;
     }
 }

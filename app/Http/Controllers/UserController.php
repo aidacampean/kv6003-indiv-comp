@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Http\Requests\StoreEmail;
 use App\Http\Requests\StorePassword;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -42,11 +41,10 @@ class UserController extends Controller
         }
 
         if ($account->save()) {
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Your email has been changed successfully.');
         }
 
-        return response('error', 500);
-
+        return redirect()->back()->with('success', 'We encountered an error removing the trip. Please try again.');
     }
 
     public function storePassword(StorePassword $request)
@@ -59,10 +57,9 @@ class UserController extends Controller
         }
 
         if ($account->save()) {
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Your password has been changed successfully.');
         }
 
-        return response('error', 500);
-
+        return redirect()->back()->with('success', 'We encountered an error removing the trip. Please try again.');
     }
 }

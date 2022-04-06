@@ -6,6 +6,7 @@ use App\Models\Collaborator;
 use App\Models\Trip;
 use App\Models\User;
 use App\Models\UserInvitation;
+use App\Models\UserTrip;
 use App\Mail\InviteUser;
 use App\Http\Requests\SendInvitation;
 use Carbon\Carbon;
@@ -32,26 +33,17 @@ class CollaborateController extends Controller
      */
     public function index(int $id)
     {
-        $trips = Trip::whereId($id)
+        $trip = Trip::whereId($id)
             ->whereUserId(Auth::id())
-            ->with('collaborators')
-            ->firstOrFail();
-         //dd($trips);
-
-            //->with('Users')
-
-             // $collaborators = Collaborator::whereTripId($id)
-        //     ->whereUserId(Auth::id())
-        //     ->with('Trip')
-        //     ->with('User')
-        //     ->with('User')
-        //     ->firstOrFail()->toArray();
+            ->with('tripCollaborators.user') // retrieve the user trip record with the user details
+            ->with('userInvites') // retrieve the invites
+            ->firstOrFail()->toArray();
 
            return view(
                 'planner.collaborate',
             [
                 'section' => 'create-trip',
-                'trips' => $trips
+                'trip' => $trip
             ]
         );
     }
@@ -92,7 +84,7 @@ class CollaborateController extends Controller
             $invitation = UserInvitation::create([
                 'trip_id' => $id,
                 'email_address' => $validated['email'],
-                'invite_code' => \Str::random(30),
+                'invite_code' => \Str::random(10),
                 'expiry_date' => Carbon::now()->addDay()
             ]);
 
@@ -103,21 +95,21 @@ class CollaborateController extends Controller
             if ($invitation->save()) {
                 // fix this
                 try {
-                    Mail::to($request->user())->send(new InviteUser($invitation, $trip, $user));
+                    Mail::to($validated['email'])->send(new InviteUser($invitation, $trip, $user));
                     return redirect('/trip/' . $id . '/invite')
-                            ->withSuccess('Invitation sent to ' . $validated['email']);
+                            ->with('success', 'Invitation sent to ' . $validated['email']);
 
                 } catch (\Exception $e) {
                     return redirect()->back()
                         ->withInput($request->input())
-                        ->withError('There was an error sending the email');
+                        ->with('error', 'There was an error sending the email');
                 }
             }
         }
         
         return redirect()->back()
             ->withInput($request->input())
-            ->withError('There was an error sending the email');
+            ->with('error', 'There was an error sending the email');
     }
 
 
@@ -182,17 +174,37 @@ class CollaborateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroyCollaborator(int $tripId, int $userTripId)
     {
-        //check the resource exists
-        $collaborator = Collaborator::whereId($id)
-            ->firstOrFail();
+        $trip = Trip::whereId($tripId)->firstOrFail();
 
-        //delete the resource and redirect with a success message if deleted
-        if ($collaborator->delete()) {
-            return redirect('/trip/' . $collaborator->trip_id . '/collaborate')->with('success', $collaborator->username . ' has been removed');
+        if ($this->authorize('delete', $trip)) {
+            $userTripId = UserTrip::whereId($userTripId)
+                    ->firstOrFail();
+            //if the record exists and it has been deleted, redirect back
+            if ($userTripId && $userTripId->delete()) {
+                return redirect()->back()->with('success', 'User ' . $userTripId->username . ' has been deleted');
+            }
+            return redirect()->back()->with('error', 'We encountered an error removing the user. Please try again.');
         }
 
-        return redirect()->back()->with('error', 'Error message');
+    }
+
+    public function destroyInvite(int $tripId, int $inviteId)
+    {
+        $trip = Trip::whereId($tripId)->firstOrFail();
+
+        if ($this->authorize('delete', $trip)) {
+
+            $invite = UserInvitation::whereId($inviteId)->firstOrFail();
+
+            //if the record exists and it has been deleted, redirect back
+            if ($invite && $invite->delete()) {
+                return redirect()->back()->with('success', 'Invite for ' . $invite->email . ' has been deleted');
+            }
+
+        // incomplete
+        return redirect()->back()->with('error', 'We encountered an error removing the invite. Please try again.');
+        }
     }
 }

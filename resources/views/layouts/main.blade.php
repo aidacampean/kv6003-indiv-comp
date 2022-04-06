@@ -54,7 +54,7 @@
                             <li class="nav-item text-center dropdown">
                                 <i class="fa-solid fa-user fa-xl"></i>
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                User
+                                {{ Auth::user()->username }}
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item text-secondary {{ $section == 'my-account' ? 'active' : '' }}" href="{{ route('my-account') }}">My Account</a>

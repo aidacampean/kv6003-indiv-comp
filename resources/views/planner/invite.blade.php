@@ -1,6 +1,15 @@
 @extends('layouts.main')
 
 @section('content')
+@include('partials/alerts')
+@foreach ($errors->all() as $error)
+    <div class="alert alert-danger alert-dismissible" role="alert" aria-live="polite" aria-atomic="true">
+    {{ $error }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+        <span>&times;</span>
+    </button>
+</div>
+@endforeach 
     <div class="p-5 container">
         <h2>
             Invite a user
@@ -10,24 +19,6 @@
         </h2>
         <hr>
         <div class="card p-2">
-            @if(Session::has('success'))
-                <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert">×</button> 
-                    {{Session::get('success')}}
-                </div>
-            @endif
-
-            @if($errors->has('email'))
-                <div class="alert alert-danger">
-                    <button type="button" class="close" data-dismiss="alert">×</button>    
-                    {{ $errors->first('email') }}
-                </div>
-            @endif
-
-            @if(session('error'))
-                <div class="alert alert-danger">{{session('error')}}</div>
-            @endif
-
             <div class="card-body">
                 <form name="invite" class="form-inline justify-content-md-center" method="POST" action="{{ route('store-invite', ['id' => $tripId]) }}">
                     @csrf

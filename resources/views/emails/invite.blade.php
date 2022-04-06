@@ -7,7 +7,7 @@ You have been invited to collaborate on trip {{ $trip['name'] }}. Follow the lin
 Collaborate
 @endcomponent
 
-@component('mail::panel', ['invitate_code' => $invite_code ])
+@component('mail::panel', ['invite_code' => $invite_code ])
 Invitation code: {{ $invite_code }}
 @endcomponent
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateEvent;
 use App\Http\Requests\StoreEvent;
 use App\Models\Event;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -63,6 +63,7 @@ class EventController extends Controller
 
         $event = Event::create([
             'trip_id' => $validated['id'],
+            'user_id' => Auth::id(),
             'name' => $validated['name'],
             'description' => $validated['description'],
             'date' => $validated['date'],
@@ -131,14 +132,16 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(int $id)
-    {   
+    {
+        // find event by id
         $event = Event::whereId($id)->firstOrFail();
+
+        // delete if found and return success
         if ($event) {
-            // find event by id and delete if found
             $event->delete();
+            return response()->json(['success' => true], 200);
         }
-        
-        //feedback is needed so we can display a 'deleted' message on the itinerary
-        
+
+        return response('error', 500);
     }
 }

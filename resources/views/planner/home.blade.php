@@ -1,13 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-  <div class="p-5 container-fluid">
-    @if (session()->has('success'))
-    <div role="alert alert-dismissible alert-danger" role="alert" aria-live="polite" aria-atomic="true">
-      {{ session('success') }}
-    </div>
-    @endif
-
+@include('partials/alerts')
     
       <h1 class="mt-5">My Trips</h1>
       <hr>

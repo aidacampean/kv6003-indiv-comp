@@ -85,4 +85,14 @@ class Trip extends Model
         return $this->hasMany(UserTrip::class, 'trip_id', 'id');
     }
 
+    // 
+    public function tripCollaborators()
+    {
+        return $this->hasMany(UserTrip::class, 'trip_id', 'id')->where('user_trips.role', '=', 'collaborator');
+    }
+
+    public function userInvites()
+    {
+        return $this->hasMany(UserInvitation::class, 'trip_id', 'id');
+    }
 }

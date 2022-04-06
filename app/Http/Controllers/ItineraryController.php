@@ -35,9 +35,9 @@ class ItineraryController extends Controller
             ->whereHas('usertrips', function($q) {
                 $q->where('user_trips.user_id', '=', Auth::id());
             })
-            ->with('Events:id,trip_id,name,description,notes,date')  //limit the selected columns
+            ->with('Events:id,user_id,trip_id,name,description,notes,date')  //limit the selected columns
             ->firstOrFail()->toArray();
-
+            
         //we need an array based on the days
         $to = Carbon\Carbon::createFromFormat('Y-m-d', $itinerary['date_to']);
         $from = Carbon\Carbon::createFromFormat('Y-m-d', $itinerary['date_from']);

@@ -1,13 +1,18 @@
 @extends('layouts.main')
 
 @section('content')
+@include('partials/alerts')
+@foreach ($errors->all() as $error)
+    <div class="alert alert-danger alert-dismissible" role="alert" aria-live="polite" aria-atomic="true">
+    {{ $error }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+        <span>&times;</span>
+    </button>
+</div>
+@endforeach 
 <div class="row justify-content-center">
     <i class="mt-5 fa-regular fa-circle-user fa-5x"></i>
 </div>
-
-@foreach ($errors->all() as $error)
-    <p class="text-danger">{{ $error }}</p>
-@endforeach 
 
 <div class="row">
     <div class="card mt-5 display-center">
@@ -21,12 +26,12 @@
                 <div class="col-sm-9 mt-3">
                     <label for="email">Change email address</label>
                     <i class="fa-solid fa-pen" type="submit"></i>
-                    <input id="email" placeholder="New email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                    <input id="email" placeholder="New email" type="email" class="form-control" name="email" value="{{ old('email') }}">
                 </div>
                 <div class="col-sm-9 mt-3">
                     <label for="email">Change username</label>
                     <i class="fa-solid fa-pen" type="submit"></i>
-                    <input id="username" placeholder="New username" type="text" class="form-control" name="username" value="{{ old('username') }}" required>
+                    <input id="username" placeholder="New username" type="text" class="form-control" name="username" value="{{ old('username') }}">
                 </div>
             </div>
             <button type="submit" class="btn btn-outline-secondary btn-lg w-75 mt-5 border border-1 shadow">Save</button>        

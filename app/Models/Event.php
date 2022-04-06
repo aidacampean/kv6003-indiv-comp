@@ -11,6 +11,7 @@ class Event extends Model
 
     protected $fillable = [
         'trip_id',
+        'user_id',
         'name',
         'description',
         'date',

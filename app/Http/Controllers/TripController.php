@@ -87,9 +87,9 @@ class TripController extends Controller
 
             // if trip is deleted redirect the user to the same page and display a message
             if ($trip->trashed()) {
-                return redirect('/home')->with('success', 'Your ' . $trip->name . ' has been deleted');
+                return redirect()->back()->with('success', $trip->name . ' has been deleted.');
             }
-
+            return redirect()->back()->with('error', 'We encountered an error removing the trip. Please try again.');
         }
     }
 }

@@ -2,6 +2,7 @@
 
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -49,8 +50,9 @@ Route::post('/account/store-password', [App\Http\Controllers\UserController::cla
 //collaboration
 Route::get('/trip/{id}/collaborate', [App\Http\Controllers\CollaborateController::class, 'index'])->name('collaborate');
 Route::get('/trip/{id}/invite', [App\Http\Controllers\CollaborateController::class, 'invite'])->name('invite');
-Route::post('/trip/{id}/invite', [App\Http\Controllers\CollaborateController::class, 'StoreInvite'])->name('store-invite');
-Route::get('/trip/{id}/collaborate/destroy', [App\Http\Controllers\CollaborateController::class, 'destroy'])->name('destroy-collaborator');
+Route::post('/trip/{id}/invite', [App\Http\Controllers\CollaborateController::class, 'storeInvite'])->name('store-invite');
+Route::get('/trip/{id}/destroy-invite/{invite_id}', [App\Http\Controllers\CollaborateController::class, 'destroyInvite'])->name('destroy-invite');
+Route::get('/trip/{id}/destroy-collaborator/{ut_id}', [App\Http\Controllers\CollaborateController::class, 'destroyCollaborator'])->name('destroy-collaborator');
 
 //trip tasks 
 Route::get('/trip/{id}/tasks', [App\Http\Controllers\TaskController::class, 'index'])->name('tasks');
