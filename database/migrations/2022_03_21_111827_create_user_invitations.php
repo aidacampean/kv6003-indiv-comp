@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::create('user_invitations', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('trip_id');
-            $table->string('email_address');
+            $table->string('email')->unique();
             $table->string('invite_code');
-            $table->timestamp('expiry_date');
             $table->timestamps();
         });
     }

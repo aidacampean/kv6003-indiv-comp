@@ -11,8 +11,7 @@ class UserInvitation extends Model
 
     protected $fillable = [
         'trip_id',
-        'email_address',
-        'invite_code',
-        'expiry_date'
+        'email',
+        'invite_code'
     ];
 }

@@ -61,7 +61,7 @@ class RegisterController extends Controller
             'email' => ['required', 'email', 'string', 'max:255', 'unique:users'],
             'username' => ['required', 'string', 'min:5' ,'max:20', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'max:30', 'confirmed'],
-            'invite-code' => ['nullable', 'string', 'exists:user_invitations,invite_code,email_address,' . $data['email'] . '']
+            'invite-code' => ['nullable', 'string', 'exists:user_invitations,invite_code,email,' . $data['email'] . '']
         ]);
     }
 
@@ -84,7 +84,7 @@ class RegisterController extends Controller
             //if the user used an invite code during registration, we need to perform additional tasks
             if ($data['invite-code']) {
                 $invite = UserInvitation::whereInviteCode($data['invite-code'])
-                    ->whereEmailAddress($data['email'])
+                    ->whereEmail($data['email'])
                     ->first('trip_id');
         
                 UserTrip::create([

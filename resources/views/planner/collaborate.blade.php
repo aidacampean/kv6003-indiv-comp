@@ -28,7 +28,7 @@
                         @else
                             @foreach($trip['trip_collaborators'] as $userTrip)
                                 <tr>
-                                    <td class="col-5 align-middle">@php echo $userTrip['user']['name'] @endphp</td>
+                                    <td class="col-5 align-middle">@php echo $userTrip['user']['username'] @endphp</td>
                                     <td class="col-5 align-middle">@php echo $userTrip['user']['email'] @endphp</td>
                                     <td class="col-2 align-middle">
                                         <a
@@ -68,7 +68,7 @@
                             @else
                                 @foreach($trip['user_invites'] as $invite)
                                 <tr>
-                                    <td class="col align-middle">@php echo $invite['email_address'] @endphp</td>
+                                    <td class="col align-middle">@php echo $invite['email'] @endphp</td>
                                     <td class="col align-middle">
                                     <a
                                         class="text-white btn btn-secondary"

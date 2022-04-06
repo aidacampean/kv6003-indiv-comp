@@ -83,9 +83,8 @@ class CollaborateController extends Controller
 
             $invitation = UserInvitation::create([
                 'trip_id' => $id,
-                'email_address' => $validated['email'],
-                'invite_code' => \Str::random(10),
-                'expiry_date' => Carbon::now()->addDay()
+                'email' => $validated['email'],
+                'invite_code' => \Str::random(10)
             ]);
 
             $trip = Trip::whereId($id)->firstOrFail();

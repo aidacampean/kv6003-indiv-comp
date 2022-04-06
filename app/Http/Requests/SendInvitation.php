@@ -24,7 +24,15 @@ class SendInvitation extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|max:255'
+            'email' => 'required|email|max:255|unique:user_invitations,email'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'email' => 'A valid email address must be provided', 
+            'email.unique' => 'An invite has already been sent for this email address'
         ];
     }
 }
