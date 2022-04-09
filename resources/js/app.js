@@ -41,8 +41,7 @@ Vue.component('FormError', require('./components/FormError.vue').default);
 Vue.component('toast', require('./components/itinerary/Toast.vue').default);
 //Vue.component('summary', require('./components/itinerary/Summary.vue').default);
 Vue.component('user', require('./components/collaboration/User.vue').default);
-
-
+Vue.component('tasks', require('./components/collaboration/Tasks.vue').default);
 
 // vue
 // Vue.component('b-alert', BAlert);

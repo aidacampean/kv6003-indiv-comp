@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('collaborator_id');
+            $table->unsignedInteger('collaborator_id');
             $table->unsignedInteger('trip_id');
-            $table->enum('type', ['hotels', 'flights', 'excursions', 'other']);
-            $table->text('description')->nullable();
+            $table->string('task1')->nullable(true);
+            $table->string('task2')->nullable(true);
             $table->timestamps();
         });
     }

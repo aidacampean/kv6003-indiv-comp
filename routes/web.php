@@ -27,40 +27,43 @@ Route::get('/', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// trip crud
-Route::get('/trip/create', [App\Http\Controllers\TripController::class, 'create'])->name('create-trip');
-Route::get('/trip/delete/{id}', [App\Http\Controllers\TripController::class, 'destroy'])->name('delete-trip');
-// Route::post('/create-trip', [App\Http\Controllers\TripController::class, 'create'])->name('create-trip');
-Route::post('/trip/store', [App\Http\Controllers\TripController::class, 'store']);
-
-// itinerary 
-Route::get('/trip/{id}/itinerary', [App\Http\Controllers\ItineraryController::class, 'index'])->name('itinerary');
-Route::post('/itinerary/store', [App\Http\Controllers\ItineraryController::class, 'store']);
-
-//event
-Route::post('/trip/add-event', [App\Http\Controllers\EventController::class, 'store']);
-Route::get('/trip/destroy-event/{id}', [App\Http\Controllers\EventController::class, 'destroy']);
-Route::post('/trip/update-event/{id}', [App\Http\Controllers\EventController::class, 'update']);
-
 // my account
 Route::get('/account', [App\Http\Controllers\UserController::class, 'index'])->name('my-account');
 Route::post('/account/store-email', [App\Http\Controllers\UserController::class, 'storeEmail'])->name('store-email');
 Route::post('/account/store-password', [App\Http\Controllers\UserController::class, 'storePassword'])->name('store-password');
 
+Route::group(['prefix' => 'trip'], function() {
+// trip crud
+Route::get('/create', [App\Http\Controllers\TripController::class, 'create'])->name('create-trip');
+Route::get('/delete/{id}', [App\Http\Controllers\TripController::class, 'destroy'])->name('delete-trip');
+// Route::post('/create-trip', [App\Http\Controllers\TripController::class, 'create'])->name('create-trip');
+Route::post('/store', [App\Http\Controllers\TripController::class, 'store']);
+
+// itinerary 
+Route::get('/{id}/itinerary', [App\Http\Controllers\ItineraryController::class, 'index'])->name('itinerary');
+Route::post('/itinerary/store', [App\Http\Controllers\ItineraryController::class, 'store']);
+
+//event
+Route::post('/add-event', [App\Http\Controllers\EventController::class, 'store']);
+Route::get('/destroy-event/{id}', [App\Http\Controllers\EventController::class, 'destroy']);
+Route::post('/update-event/{id}', [App\Http\Controllers\EventController::class, 'update']);
+
 //collaboration
-Route::get('/trip/{id}/collaborate', [App\Http\Controllers\CollaborateController::class, 'index'])->name('collaborate');
-Route::get('/trip/{id}/invite', [App\Http\Controllers\CollaborateController::class, 'invite'])->name('invite');
-Route::post('/trip/{id}/invite', [App\Http\Controllers\CollaborateController::class, 'storeInvite'])->name('store-invite');
-Route::get('/trip/{id}/destroy-invite/{invite_id}', [App\Http\Controllers\CollaborateController::class, 'destroyInvite'])->name('destroy-invite');
-Route::get('/trip/{id}/destroy-collaborator/{ut_id}', [App\Http\Controllers\CollaborateController::class, 'destroyCollaborator'])->name('destroy-collaborator');
+Route::get('/{id}/collaborate', [App\Http\Controllers\CollaborateController::class, 'index'])->name('collaborate');
+Route::get('/{id}/invite', [App\Http\Controllers\CollaborateController::class, 'invite'])->name('invite');
+Route::post('/{id}/invite', [App\Http\Controllers\CollaborateController::class, 'storeInvite'])->name('store-invite');
+Route::get('/{id}/destroy-invite/{invite_id}', [App\Http\Controllers\CollaborateController::class, 'destroyInvite'])->name('destroy-invite');
+Route::get('/{id}/destroy-collaborator/{ut_id}', [App\Http\Controllers\CollaborateController::class, 'destroyCollaborator'])->name('destroy-collaborator');
+Route::post('/{id}/add-task/{user_id}', [App\Http\Controllers\CollaborateController::class, 'storeTask']);
 
 //trip tasks 
-Route::get('/trip/{id}/tasks', [App\Http\Controllers\TaskController::class, 'index'])->name('tasks');
+//Route::get('/trip/{id}/tasks', [App\Http\Controllers\TaskController::class, 'index'])->name('tasks');
 
 // Route::get('/account', function () {
 //     return view('my_account');
 // });
 // Route::get('/my-details', )
+});
 
 Auth::routes();
 

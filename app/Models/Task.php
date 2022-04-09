@@ -12,18 +12,19 @@ class Task extends Model
     protected $fillable = [
         'collaborator_id',
         'trip_id',
-        'type',
-        'description'
+        'description',
+        'task1',
+        'task2'
     ];
 
     public function trip()
     {
-        return $this->belongsTo(Trip::class, 'trip_id', 'id');
+        return $this->belongsTo(Trip::class, 'id', 'trip_id');
     }
     
-    public function collaborator()
+    public function task()
     {
-        return $this->hasOne(Collaborator::class, 'id', 'collaborator_id');
+        return $this->belongsTo(UserTrip::class, 'id', 'collaborator_id');
     }
 }
 

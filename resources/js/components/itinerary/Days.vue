@@ -315,6 +315,23 @@
       },
       setEvent(event) {
         return this.form.name = event;
+      },
+      searchHotel() {
+        axios({
+          method: 'get', //you can set what request you want to be
+          url: 'https://booking-com.p.rapidapi.com/v1/hotels/search',
+          params: {
+            dest_id: '-1156174',
+            dest_type: 'city',
+            locale: 'en-gb',
+            checkin_date: '',
+            checkout_date: '',
+          },
+          headers: {
+            'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
+            'X-RapidAPI-Key': '64808efcb9mshdbbd115b58b2858p1ee947jsn79d44e85a5e1'
+          }
+        })
       }
     }
   }

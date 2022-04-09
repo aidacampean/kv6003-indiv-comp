@@ -64,16 +64,16 @@ class Trip extends Model
     //                 ->get();
     // }
 
-    public function collaborators() 
-    {
-        return $this->hasMany(Collaborator::class);
-    }
+    // public function collaborators() 
+    // {
+    //     return $this->hasMany(Collaborator::class);
+    // }
 
 
-    public function collaboratorUser()
-    {
-        return $this->hasOneThrough(User::class, Collaborator::class, 'user_id', 'id');
-    }
+    // public function collaboratorUser()
+    // {
+    //     return $this->hasOneThrough(User::class, Collaborator::class, 'user_id', 'id');
+    // }
 
     public function tasks()
     {
