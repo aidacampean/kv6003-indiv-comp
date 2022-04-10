@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTrip;
 use App\Models\City;
+use App\Models\Collaborator;
 use App\Models\Trip;
-use App\Models\UserTrip;
 use Illuminate\Support\Facades\Auth;
 use Session;
 
@@ -45,7 +45,7 @@ class TripController extends Controller
         ]);
 
         if ($trip->save()) {
-            UserTrip::create([
+            Collaborator::create([
                 'trip_id' => $trip->id,
                 'user_id' => Auth::id(),
                 'role' => 'admin'

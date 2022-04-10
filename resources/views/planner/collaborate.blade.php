@@ -13,7 +13,7 @@
                     <i class="fa-solid fa-user fa-sm mr-3"></i>
                     Users
                 </h3>
-                <tasks :users='@json($trip["trip_collaborators"])' />
+                <tasks :users='@json($trip["collaborators"])' />
             </div>
         </div>
         <div class="col-lg-3 col-sm-12 ml-auto">

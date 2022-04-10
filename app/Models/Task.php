@@ -24,7 +24,7 @@ class Task extends Model
     
     public function task()
     {
-        return $this->belongsTo(UserTrip::class, 'id', 'collaborator_id');
+        return $this->belongsTo(Collaborator::class, 'id', 'collaborator_id');
     }
 }
 

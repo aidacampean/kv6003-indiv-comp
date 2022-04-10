@@ -12,33 +12,16 @@ class Collaborator extends Model
     protected $fillable = [
         'trip_id',
         'user_id',
-        'status',
+        'role'
     ];
-
-    // public function trip()
-    // {
-    //     return $this->hasMany(Trip::class);
-    // }
-
-    // public function user()
-    // {
-    //     return $this->hasOne(User::class);
-    // }
-
-    public function tasks()
-    {
-        return $this->hasMany(Task::class, 'id', 'trip_id')->where('tasks.collaborator_id', '=', 'collaborators.user_id');
-        #return $this->hasMany(Task::class)->where('collaborator_id', '=', 'user_id');
-    }
 
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function trip()
+    public function tasks()
     {
-        return $this->hasOne(Trip::class, 'id', 'trip_id');
+        return $this->hasOne(Task::class, 'collaborator_id', 'id');
     }
-
 }

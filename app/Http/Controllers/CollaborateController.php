@@ -37,8 +37,8 @@ class CollaborateController extends Controller
     {
         $trip = Trip::whereId($id)
             ->whereUserId(Auth::id())
-            ->with('tripCollaborators.user') // retrieve the user trip record with the user details
-            ->with('tripCollaborators.tasks') // retrieve the user trip record with the user details
+            ->with('collaborators.user') // retrieve the user trip record with the user details
+            ->with('collaborators.tasks') // retrieve the user trip record with the user details
             ->with('userInvites') // retrieve the invites
             ->firstOrFail()->toArray();
 
@@ -208,7 +208,7 @@ class CollaborateController extends Controller
         $trip = Trip::whereId($tripId)->firstOrFail();
 
         if ($this->authorize('delete', $trip)) {
-            $userTripId = UserTrip::whereId($userTripId)
+            $userTripId = Collaborator::whereId($userTripId)
                     ->firstOrFail();
             //if the record exists and it has been deleted, redirect back
             if ($userTripId && $userTripId->delete()) {

@@ -27,9 +27,9 @@ class HomeController extends Controller
     {
         $userId = Auth::id();
 
-        $trips = Trip::with('usertrips')
-            ->whereHas('usertrips', function($q) {
-                $q->where('user_trips.user_id', '=', Auth::id());
+        $trips = Trip::with('collaborators')
+            ->whereHas('collaborators', function($q) {
+                $q->where('collaborators.user_id', '=', Auth::id());
             })
             ->orderBy('date_from', 'asc')
             ->get()->toArray();

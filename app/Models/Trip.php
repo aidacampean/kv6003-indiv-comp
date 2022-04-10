@@ -80,16 +80,16 @@ class Trip extends Model
         return $this->hasMany(Task::class);
     }
 
-    public function userTrips()
+    public function collaborators()
     {
-        return $this->hasMany(UserTrip::class, 'trip_id', 'id');
+        return $this->hasMany(Collaborator::class, 'trip_id', 'id');
     }
 
     // 
-    public function tripCollaborators()
-    {
-        return $this->hasMany(UserTrip::class, 'trip_id', 'id')->where('user_trips.role', '=', 'collaborator');
-    }
+    // public function tripCollaborators()
+    // {
+    //     return $this->hasMany(Collaborator::class, 'trip_id', 'id')->where('collaborators.role', '=', 'collaborator');
+    // }
 
     public function userInvites()
     {

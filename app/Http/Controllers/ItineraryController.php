@@ -32,8 +32,8 @@ class ItineraryController extends Controller
     public function index(int $id)
     {
         $itinerary = Trip::whereId($id)
-            ->whereHas('usertrips', function($q) {
-                $q->where('user_trips.user_id', '=', Auth::id());
+            ->whereHas('collaborators', function($q) {
+                $q->where('collaborators.user_id', '=', Auth::id());
             })
             ->with('Events:id,user_id,trip_id,name,description,notes,date')  //limit the selected columns
             ->firstOrFail()->toArray();
