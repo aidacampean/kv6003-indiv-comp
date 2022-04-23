@@ -30,7 +30,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // my account
 Route::get('/account', [App\Http\Controllers\UserController::class, 'index'])->name('my-account');
 Route::post('/account/store-email', [App\Http\Controllers\UserController::class, 'storeEmail'])->name('store-email');
-Route::post('/account/store-password', [App\Http\Controllers\UserController::class, 'storePassword'])->name('store-password');
+Route::post('/account/store-password',[App\Http\Controllers\UserController::class, 'storePassword'])->name('store-password');
 
 Route::group(['prefix' => 'trip'], function() {
 // trip crud
@@ -50,10 +50,10 @@ Route::post('/update-event/{id}', [App\Http\Controllers\EventController::class, 
 
 //collaboration
 Route::get('/{id}/collaborate', [App\Http\Controllers\CollaborateController::class, 'index'])->name('collaborate');
-Route::get('/{id}/invite', [App\Http\Controllers\CollaborateController::class, 'invite'])->name('invite');
+Route::get('/{id}/invite', [App\Http\Controllers\CollaborateController::class, 'displayInvite'])->name('invite');
 Route::post('/{id}/invite', [App\Http\Controllers\CollaborateController::class, 'storeInvite'])->name('store-invite');
 Route::get('/{id}/destroy-invite/{invite_id}', [App\Http\Controllers\CollaborateController::class, 'destroyInvite'])->name('destroy-invite');
-Route::get('/{id}/destroy-collaborator/{ut_id}', [App\Http\Controllers\CollaborateController::class, 'destroyCollaborator'])->name('destroy-collaborator');
+Route::get('/{id}/destroy-collaborator/{collaborator_id}', [App\Http\Controllers\CollaborateController::class, 'destroyCollaborator'])->name('destroy-collaborator');
 Route::post('/{id}/add-task/{user_id}', [App\Http\Controllers\CollaborateController::class, 'storeTask']);
 
 //trip tasks 

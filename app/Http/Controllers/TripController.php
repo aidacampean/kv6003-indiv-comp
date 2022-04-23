@@ -7,7 +7,6 @@ use App\Models\City;
 use App\Models\Collaborator;
 use App\Models\Trip;
 use Illuminate\Support\Facades\Auth;
-use Session;
 
 class TripController extends Controller
 {
@@ -21,11 +20,13 @@ class TripController extends Controller
         $this->middleware('auth');
     }
 
+    // create initial form that loads the cities
     public function create()
     {
         $cities = City::all('id', 'name')->toArray();
 
-        return view('planner.create_trip',
+        return view(
+            'planner.create_trip',
             [
                 'section' => 'create-trip',
                 'data' => $cities
@@ -34,7 +35,7 @@ class TripController extends Controller
     }
 
     public function store(StoreTrip $request)
-    {   
+    {
         $validated = $request->validated();
         $trip = Trip::create([
             'name' => $validated['name'],
@@ -62,24 +63,15 @@ class TripController extends Controller
         //
     }
 
-    public function edit(int $id)
-    {
-    //    $trip = Trip::whereId($id)->firstOrFail();
-
-    }
-
     public function update(int $id)
     {
        //
     }
 
-
     public function destroy(int $id)
     {
         $trip = Trip::whereId($id)->firstOrFail();
-
         if ($this->authorize('delete', $trip)) {
-
             if ($trip) {
                 // find trip by id and delete if found
                 $trip->delete();

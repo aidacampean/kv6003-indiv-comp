@@ -19,7 +19,7 @@ class EventController extends Controller
         $this->middleware('auth');
     }
 
-    /* 
+    /*
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -43,7 +43,8 @@ class EventController extends Controller
         //
         $events = Event::all()->toArray();
 
-        return view('sections',
+        return view(
+            'sections',
             [
                 'events' => 'create-trip',
                 'data' => $events
@@ -89,19 +90,6 @@ class EventController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Event $event
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(int $id)
-    {
-        //
-       // $event = Event::whereId($id)->firstOrFail();
-
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -113,7 +101,7 @@ class EventController extends Controller
         //
         $validated = $request->validated();
         $event = Event::whereId($id)->firstOrFail();
-        
+
         if ($event) {
             $event->name = $validated['name'];
             $event->description = $validated['description'];

@@ -1,19 +1,20 @@
 @extends('layouts.welcome')
 
 @section('content')
-<main class="form bg-white">
-<form method="POST" action="{{ route('login') }}">
+@include('partials/alerts')
+<main class="form-login bg-white">
+<form novalidate method="POST" action="{{ route('login') }}">
     @csrf
         <h1 class="display-6 pt-5">LOGIN</h1>
 
         <div class="row justify-content-md-center pt-3">
             <div class="col-sm-9">
-                <input id="username" placeholder="Username or email" type="username" class="form-control @if (session()->has('error')) is-invalid @endif" name="username" value="{{ old('username') }}" required autocomplete="username">
-                @if (session()->has('error'))
-                    <div class="text-danger" role="alert">
-                        {{ session('error') }}
-                    </div>
-                @endif
+                <input id="username" placeholder="Username or email" type="username" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" autocomplete="username">
+                @error('username')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
         </div>
         <div class="row justify-content-md-center pt-3">

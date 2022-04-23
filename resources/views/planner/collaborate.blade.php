@@ -54,14 +54,38 @@
                         </tbody>
                     </table>
                 </div>
+                @if (count($trip['collaborators']) <= 5)
                 <div class="footer">
-                    <a class="text-white btn btn-secondary" href="{{ route('invite', ['id' => $trip['id']] ) }}">
-
+                    <a
+                      type="button"
+                      class="btn btn-secondary"
+                      href="{{ route('invite', ['id' => $trip['id']] ) }}"
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Send an invitation to collaborate">
                         <!-- add edit icon -->
-                        <i class="fa-solid fa-paper-plane-top"></i>
                         Invite
+                        <i class="fa-solid fa-paper-plane-top"></i>
                     </a>
+                    <div>Resend invitation code and have an invitation code column. Notifications: if user is registered, send a notification instead of email</div>
                 </div>
+                @elseif (count($trip['collaborators']) > 5)
+                <div class="footer">
+                    <button
+                      type="submit"
+                      class="text-white btn btn-secondary disabled"
+                      href="{{ route('invite', ['id' => $trip['id']] ) }}"
+                      aria-disabled="true"
+                    >
+                        <!-- add edit icon -->
+                        Invite
+                        <i class="fa-solid fa-paper-plane-top"></i>
+                    </button>
+                    <span style="font-size: 18px; color: Dodgerblue;" v-b-tooltip.hover title="This is the maximum number of collaborators you can invite">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </span>
+                </div>
+                @endif
             </div>
         </div>
     </div>

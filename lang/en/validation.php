@@ -143,7 +143,7 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'custom-message',
+            'incorrect' => 'These details do not match our records.',
         ],
     ],
 

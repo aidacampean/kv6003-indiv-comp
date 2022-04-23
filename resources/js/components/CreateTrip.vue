@@ -16,6 +16,7 @@
               <option v-for="option in options" :key="option.id" :value="option.id">
                 {{ option.name }}
               </option>
+              <p>{{ }}</p>
             </b-form-select>
 
           <b-form-invalid-feedback id="city-feedback">
@@ -99,6 +100,7 @@
       return {
         form: {
           city_id: 0,
+          description: '',
           name: '',
           date_from: '',
           date_to: '',
@@ -131,6 +133,8 @@
         }).catch(({response}) => {
           this.errors = response.data.errors
         })
+      },
+      showCityInfo(){
       }
     }
   }

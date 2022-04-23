@@ -31,7 +31,7 @@ class SendInvitation extends FormRequest
     public function messages()
     {
         return [
-            'email' => 'A valid email address must be provided', 
+            'email' => 'A valid email address must be provided',
             'email.unique' => 'An invite has already been sent for this email address'
         ];
     }

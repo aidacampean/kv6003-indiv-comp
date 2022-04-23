@@ -28,13 +28,17 @@ class HomeController extends Controller
         $userId = Auth::id();
 
         $trips = Trip::with('collaborators')
-            ->whereHas('collaborators', function($q) {
-                $q->where('collaborators.user_id', '=', Auth::id());
-            })
+            ->whereHas(
+                'collaborators',
+                function ($q) {
+                    $q->where('collaborators.user_id', '=', Auth::id());
+                }
+            )
             ->orderBy('date_from', 'asc')
             ->get()->toArray();
 
-        return view('planner.home',
+        return view(
+            'planner.home',
             [
                 'trips' => $trips,
                 'section' => 'home',

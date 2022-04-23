@@ -15,13 +15,15 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('trip_id');
-            $table->unsignedInteger('user_id');
+            $table->bigInteger('trip_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->string('name')->nullable(false);
             $table->longText('description')->nullable(true);
             $table->longText('notes')->nullable(true);
             $table->timestamp('date');
             $table->timestamps();
+            $table->foreign('trip_id')->references('id')->on('trips');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

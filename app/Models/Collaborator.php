@@ -20,7 +20,7 @@ class Collaborator extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function tasks()
+    public function task()
     {
         return $this->hasOne(Task::class, 'collaborator_id', 'id');
     }

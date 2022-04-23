@@ -12,7 +12,8 @@ use Illuminate\Queue\SerializesModels;
 
 class InviteUser extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * The order instance.

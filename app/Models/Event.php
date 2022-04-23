@@ -22,13 +22,8 @@ class Event extends Model
         'date'  => 'date:Y-m-d',
     ];
 
-    public function trip()
-    {
-        return $this->hasOne(Trip::class, 'trip_id');
-    }
-
-    public function itinerary()
-    {
-        return $this->hasOne(itinerary::class);
-    }
+    // public function trip()
+    // {
+    //     return $this->hasOne(Trip::class, 'trip_id');
+    // }
 }

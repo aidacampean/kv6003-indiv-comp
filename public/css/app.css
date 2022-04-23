@@ -10849,10 +10849,17 @@ body {
 }
 
 .form {
-  height: 100%;
-  width: 100%;
+  min-height: auto;
   width: 500px;
-  height: 600px;
+  padding: 15px;
+  margin: auto;
+  box-shadow: 2px 2px 5px 1px rgba(75, 74, 74, 0.8);
+  /* offset-x | offset-y | blur-radius | spread-radius | color */
+}
+
+.form-login {
+  min-height: 500px;
+  width: 500px;
   padding: 15px;
   margin: auto;
   box-shadow: 2px 2px 5px 1px rgba(75, 74, 74, 0.8);

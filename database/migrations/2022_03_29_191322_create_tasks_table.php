@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('collaborator_id');
-            $table->unsignedInteger('trip_id');
+            $table->bigInteger('collaborator_id')->unsigned();
+            $table->bigInteger('trip_id')->unsigned();
             $table->string('task1')->nullable(true);
             $table->string('task2')->nullable(true);
             $table->timestamps();
+            $table->foreign('collaborator_id')->references('id')->on('collaborators');
+            $table->foreign('trip_id')->references('id')->on('trips');
         });
     }
 

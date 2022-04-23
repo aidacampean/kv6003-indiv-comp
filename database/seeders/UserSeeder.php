@@ -2,11 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\User;
-use Faker\Factory as Faker;
-
+use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {

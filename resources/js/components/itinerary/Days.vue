@@ -22,7 +22,7 @@
                 data-toggle="tab" 
                 href="#nav-hotels" 
                 role="tab" 
-                aria-controls="nav-hotels" 
+                aria-controls="nav-hotels"
                 aria-selected="false" 
                 @click="setEvent('hotel')"
                 >
@@ -171,12 +171,13 @@
         </div>
       </b-modal>
 
-    <b-modal :id="date" size="lg" scrollable hide-header>
+    <b-modal :id="date" size="lg" hide-footer hide-header scrollable>
       <h2>{{ 'DAY SUMMARY' }}</h2>
       <div class="mt-2"><h5>{{ 'DATE: ' }} {{ date | formatDate }}</h5></div>
       <day-summary 
       :data="events"
       />
+      <b-button class="" variant="danger" @click="$bvModal.hide(date)">Close</b-button>
     </b-modal>
  
     <b-button

@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
+    use AuthenticatesUsers;
+
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -20,8 +22,6 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
-    use AuthenticatesUsers;
 
     /**
      * Where to redirect users after login.
@@ -51,23 +51,21 @@ class LoginController extends Controller
 
     public function login(StoreLogin $request)
     {
-        
+
         $input = $request->all();
         $validated = $request->validated();
 
         //check if remember me checkbos is ticket or not
-        $rememberMe = $request->has('remember') ? true : false; 
+        $rememberMe = $request->has('remember') ? true : false;
 
         $fieldType = filter_var($validated['username'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-
-        if (auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password']), $rememberMe))
-        {
+        if (auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password']), $rememberMe)) {
             return redirect()->route('home');
-        }else{
+        } else {
             return redirect()->route('login')
-                ->with('error','Email address or username do not match our records');
+                                ->with('auth.failed');
+
+            ;
         }
-          
     }
-          
 }

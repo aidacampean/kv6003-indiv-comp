@@ -31,7 +31,7 @@
       <a
           class="text-white btn btn-secondary"
           href="#"
-          onclick="return confirm('Are you sure?')"
+          @click="deleteUser"
       >
         Delete
       </a>
@@ -45,7 +45,7 @@
         data: {
           type: Object,
           default: () => [],
-        }
+        },
       },
       data() {
         return {
@@ -67,31 +67,27 @@
           }
         },
         isDisabled(task) {
-          let name = task+'Limit';
-
-          //each task will be checked to determine if it's disabled
-          //user has max tasks of two so we check the length of the array or
-          //we check the defined task limit in the Task component to determine if we can assign a user to that task
-          //if either of the first two statements are true, all checkboxes are disabled and that includes the ones selected.
-          //to get around this we need to check if the task is in the array, and if not it's disabled
-          //-1 indicates we can't find the value in the array.
-          //For anything that's in the array, this will return false, thus keeping that task enabled so that it can 'switched off'
-          //or the task allocation is maxed and the selected array has the item (so we can at least disable a checked box)
-          
-          return (this.form.selected.length === 2 || this.$parent[name] == 0) && this.form.selected.indexOf(task) === -1;
+          return (this.form.selected.length == 2 || this.$parent[task+'Limit'] == 0) && this.form.selected.indexOf(task) === -1;
         },
         saveTasks() {
           axios.post('/trip/'+this.data.trip_id+'/add-task/'+this.data.id, {
             'task1': this.form.selected[0] ? this.form.selected[0] : null,
             'task2': this.form.selected[1] ? this.form.selected[1] : null,
-          }).then(({data})=> {
+          }).then(()=> {
           }).catch(({response}) => {
             this.errors = response.data.errors
           })
         },
         deleteUser() {
+          axios.get('/trip/'+this.data.trip_id+'/destroy-collaborator/'+this.data.id)
+          .then(()=> {
+            this.$delete(this.data.id)
+          }).catch(({response}) => {
+            this.errors = response.data.errors
+          })
         }
       },
+      // needed to work out the limits
       created: function () {
         let tasks = this.$props.data.tasks;
         if (tasks) {

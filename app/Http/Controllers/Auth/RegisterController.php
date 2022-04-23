@@ -10,13 +10,11 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-// use Egulias\EmailValidator\Validation\RFCValidation;
-// use Egulias\EmailValidator\Validation\DNSCheckValidation;
-
-
 
 class RegisterController extends Controller
 {
+    use RegistersUsers;
+
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -27,8 +25,6 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
-    use RegistersUsers;
 
     /**
      * Where to redirect users after registration.
@@ -85,7 +81,7 @@ class RegisterController extends Controller
                 $invite = UserInvitation::whereInviteCode($data['invite-code'])
                     ->whereEmail($data['email'])
                     ->first('trip_id');
-        
+
                 Collaborator::create([
                     'user_id' => $user->id,
                     'trip_id' => $invite['trip_id'],

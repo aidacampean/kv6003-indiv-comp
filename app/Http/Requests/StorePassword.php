@@ -27,10 +27,9 @@ class StorePassword extends FormRequest
     {
         return [
             // db columns
-            'current_password' => ['required', new MatchOldPassword],
+            'current_password' => ['required', new MatchOldPassword()],
             'new_password' => 'required|string',
             'confirm_new_password' => 'same:new_password'
         ];
     }
 }
-

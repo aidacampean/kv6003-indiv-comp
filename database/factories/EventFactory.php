@@ -21,6 +21,6 @@ class EventFactory extends Factory
             'name' => $this->faker->randomElement(['flight', 'hotel', 'excursion', 'other']),
             'description' => $this->faker->word(),
             'date' => $this->faker->date()
-        ]; 
+        ];
     }
 }
