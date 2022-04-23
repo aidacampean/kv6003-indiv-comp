@@ -30,7 +30,9 @@
       props: {
         users: {
           type: Array,
-          default: [],
+          default() {
+            return []
+          }
         }
       },
       data() {
@@ -53,8 +55,7 @@
           hotelLimit: 2,
           excursionLimit: 2,
           otherLimit: 2,
-          errors: [],
-          csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+          errors: []
         }
       }
     }

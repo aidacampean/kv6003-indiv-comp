@@ -13,7 +13,6 @@
         :date="key"
         :counter="index+1"
         :tripId="trip.id"
-        class="content overflow-auto"
       />
     </b-row>
   </div>
@@ -29,7 +28,17 @@
     props: {
       trip: {
         type: Object,
-        default: () => []
+        default: () => {
+          return {
+            id: 0,
+            user_id: 0,
+            name: null,
+            city_id: 0,
+            date_from: "",
+            date_to: "",
+            days: []
+          }
+        },
       }
     },
     data() {

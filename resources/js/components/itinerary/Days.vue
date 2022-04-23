@@ -200,12 +200,10 @@
 </template>
 
 <script>
-  import Toast from './Toast.vue';
   import DaySummary from './DaySummary.vue';
 
   export default { 
     components: {
-      'toast': Toast,
       'day-summary': DaySummary
     },
     props: {
