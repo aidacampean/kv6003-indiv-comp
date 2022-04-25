@@ -22,10 +22,9 @@ class TripFactory extends Factory
         return [
             'city_id' => \App\Models\City::pluck('id')->random(),
             'user_id' => \App\Models\User::pluck('id')->random(),
-            'name' => $this->faker->name(),
+            'name' => $this->faker->word(),
             'date_from' => $this->faker->date(),
             'date_to' => $this->faker->date(),
-            'budget' => $this->faker->randomFloat(2, 100, 10000),
             'created_at' => $this->faker->date(),
             'updated_at' => now()
         ];

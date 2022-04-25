@@ -5,7 +5,7 @@
     </div>
     <div v-for="value in data" :key="value.id">
       <hr>
-      <div class="p-3 mb-2 bg-dark-green text-white">
+      <div>
         <h5 >{{ 'EVENT TYPE: ' }} {{ value.name.toUpperCase() }}</h5>
       </div>
       <br>
@@ -25,5 +25,5 @@
         default: []
       }
     }
-}
+  }
 </script>

@@ -33,6 +33,7 @@ class ItineraryController extends Controller
                     $q->where('collaborators.user_id', '=', Auth::id());
                 }
             )
+            ->with('tasks')
             ->with('events:id,user_id,trip_id,name,description,notes,date')  //limit the selected columns
             ->firstOrFail()->toArray();
 

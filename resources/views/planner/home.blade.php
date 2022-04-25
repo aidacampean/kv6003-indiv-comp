@@ -24,6 +24,7 @@
 
         @php
           $isOwner = ($trip['user_id'] == $user_id);
+          $showTasks = !empty($trip['tasks']);
         @endphp
 
         <div class="col-md-3 my-2 h-100">
@@ -35,23 +36,27 @@
                   {{ $isOwner ? 'admin' : 'collaborator' }}
                 </div>
               </h4>
-                <div class="card-text">
+                <h5 class="card-text">
                   Depart: {{ $trip['date_from'] }} </br>
                   Arrive: {{ $trip['date_to'] }}
-                </div>
+                </h5>
+                @if ($isOwner && $showTasks)
+                <h5>Tasks: <span class="badge badge-warning">{{ $trip['tasks'][0]['task1'] }}</span> <span class="badge badge-info">{{ $trip['tasks'][0]['task2'] }}</span></h5>
+                @endif
             </div>
+
             <div class="card-footer text-center">
-              <a class="mt-2 text-white btn btn-secondary" href="{{ route('itinerary', ['id' => $trip['id']]) }}">
+              <a class="mt-2 text-white btn btn-dark" href="{{ route('itinerary', ['id' => $trip['id']]) }}" v-b-tooltip.hover title="Plan your trip">
                   <i class="fas fa-edit"></i>
                   Plan
               </a>
 
               @if ($isOwner)
-                <a class="mt-2 text-white btn btn-secondary" href="{{ route('collaborate', ['id' => $trip['id']]) }}">
+                <a class="mt-2 text-white btn btn-primary" href="{{ route('collaborate', ['id' => $trip['id']]) }}" v-b-tooltip.hover title="Manage collaboration">
                     <i class="fa-solid fa-people-group"></i>
                     Manage
                 </a>
-                <a class="mt-2 text-white btn btn-secondary hover" href="{{ route('delete-trip', ['id' => $trip['id']]) }}" onclick="return confirm('Are you sure?')">
+                <a class="mt-2 text-white btn btn-dark" href="{{ route('delete-trip', ['id' => $trip['id']]) }}" onclick="return confirm('Are you sure?')" v-b-tooltip.hover title="Attention: You're about to delete the trip with its associated itinerary">
                   <i class="fas fa-trash"></i>
                   Delete
                 </a>

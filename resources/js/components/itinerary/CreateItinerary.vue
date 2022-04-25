@@ -13,6 +13,7 @@
         :date="key"
         :counter="index+1"
         :tripId="trip.id"
+        v-b-tooltip.hover title="See day summary of events"
       />
     </b-row>
   </div>

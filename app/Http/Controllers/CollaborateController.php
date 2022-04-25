@@ -7,7 +7,7 @@ use App\Models\Task;
 use App\Models\Trip;
 use App\Models\User;
 use App\Models\UserInvitation;
-use App\Http\Requests\SendInvitation;
+use App\Http\Requests\StoreInvitation;
 use App\Http\Requests\StoreTask;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -73,7 +73,7 @@ class CollaborateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeInvite(SendInvitation $request, int $id)
+    public function storeInvite(StoreInvitation $request, int $id)
     {
         // correction needed for the email address check so we need
         //to ensure that an invite hasn't expired yet and is unique for this trip

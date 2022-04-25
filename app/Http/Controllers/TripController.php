@@ -23,7 +23,7 @@ class TripController extends Controller
     // create initial form that loads the cities
     public function create()
     {
-        $cities = City::all('id', 'name')->toArray();
+        $cities = City::all('id', 'name', 'description')->toArray();
 
         return view(
             'planner.create_trip',
@@ -56,16 +56,6 @@ class TripController extends Controller
         }
 
         return response('error', 500);
-    }
-
-    public function show(int $id)
-    {
-        //
-    }
-
-    public function update(int $id)
-    {
-       //
     }
 
     public function destroy(int $id)

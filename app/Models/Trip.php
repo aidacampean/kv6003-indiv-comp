@@ -27,8 +27,7 @@ class Trip extends Model
         'user_id',
         'name',
         'date_from',
-        'date_to',
-        'budget'
+        'date_to'
     ];
 
     protected $casts = [
@@ -49,5 +48,10 @@ class Trip extends Model
     public function userInvites()
     {
         return $this->hasMany(UserInvitation::class, 'trip_id', 'id');
+    }
+    
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'trip_id', 'id');
     }
 }

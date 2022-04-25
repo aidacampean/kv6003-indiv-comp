@@ -58,7 +58,7 @@
                 <div class="footer">
                     <a
                       type="button"
-                      class="btn btn-secondary"
+                      class="btn btn-dark"
                       href="{{ route('invite', ['id' => $trip['id']] ) }}"
                       data-toggle="tooltip"
                       data-placement="bottom"
@@ -67,13 +67,12 @@
                         Invite
                         <i class="fa-solid fa-paper-plane-top"></i>
                     </a>
-                    <div>Resend invitation code and have an invitation code column. Notifications: if user is registered, send a notification instead of email</div>
                 </div>
                 @elseif (count($trip['collaborators']) > 5)
                 <div class="footer">
                     <button
                       type="submit"
-                      class="text-white btn btn-secondary disabled"
+                      class="text-white btn btn-dark disabled"
                       href="{{ route('invite', ['id' => $trip['id']] ) }}"
                       aria-disabled="true"
                     >

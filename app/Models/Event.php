@@ -19,7 +19,7 @@ class Event extends Model
     ];
 
     protected $casts = [
-        'date'  => 'date:Y-m-d',
+        'date'  => 'date:Y-m-d'
     ];
 
     // public function trip()

@@ -18,8 +18,10 @@ class EventFactory extends Factory
     {
         return [
             'trip_id' => \App\Models\Trip::pluck('id')->random(),
+            'user_id' => \App\Models\User::pluck('id')->random(),
             'name' => $this->faker->randomElement(['flight', 'hotel', 'excursion', 'other']),
             'description' => $this->faker->word(),
+            'notes' => $this->faker->word(),
             'date' => $this->faker->date()
         ];
     }

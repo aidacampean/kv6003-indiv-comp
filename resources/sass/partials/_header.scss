@@ -2,17 +2,37 @@
     &a, :hover, :active, :link, :visited {
         color: #fff;
     }
+
+    &:not(.active):hover {
+        background: rgb(38, 165, 144);
+    }
+
+    &.active a {
+        border-bottom: 1px solid white;
+    }
+}
+
+.site-title {
+    .highlight-text {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 0.9rem !important;
+    }
+
+    &a, :hover, :active, :link, :visited {
+        color: #fff;
+        text-decoration: none !important;
+    }
 }
 
 .header {
-    min-height: 100px;
+    min-height: 120px;
 }
 
 .background {
     background-color: #01353D;
-}
-.nav-item.active a {
-    border-bottom: 1px solid white;
 }
 
 .dropdown-item.active a {

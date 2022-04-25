@@ -90,9 +90,10 @@
               label-for="input-2"
               class="mx-3 pt-3"
             >
-              <label for="input" class="mt-2">Search</label>
+              <label for="input" class="mt-2">Add hotel details</label>
               <b-form-input
                 id="input-2"
+                placeholder="Enter something..."
                 type="text"
                 required
                 v-model="form.description"
@@ -182,14 +183,18 @@
  
     <b-button
       variant="green"
-      class=" text-white w-100"
+      class="text-white w-100"
       size="lg"
       @click="$bvModal.show(date);"
     >
       {{ 'DAY ' + counter + ' - '  }} {{ date | formatDate }}
     </b-button>
 
-    <button class="add-event" @click="addModal(modalId)">
+    <button 
+      class="add-event"
+      @click="addModal(modalId)"
+      v-b-tooltip.hover.bottomright title="Add events to this day"
+    >
       + ADD
     </button>
     <b-card class="m-2" v-for="(event, index) in eventsData" :key="event.id" >
@@ -213,11 +218,18 @@
       },
       events: {
         type: Array,
-        default: () => []
+        default: () => [
+          {
+            tripId: 0,
+            events: [{}],
+            date: "",
+            counter: 0
+          }
+        ]
       },
       date: {
         type: String,
-        default: 0
+        default: ""
       },
       counter: {
         type: Number,

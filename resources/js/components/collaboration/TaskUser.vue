@@ -22,17 +22,20 @@
     <td>
       <b-button
         type="submit"
-        variant="dark"
+        variant="primary"
         @click="saveTasks"
-        class="clearfix"
+        class="clearfix mb-md-2 mb-xl-0"
+        v-b-tooltip.hover title="This button will save or update the tasks"
       >
         Save
       </b-button>
-      <a
-          class="text-white btn btn-secondary"
+      <a v-if="data.role !== 'admin'"
+          class="text-white btn btn-dark"
           href="#"
           @click="deleteUser"
+          v-b-tooltip.hover title="This button will delete the user"
       >
+      
         Delete
       </a>
     </td>
@@ -52,8 +55,7 @@
           form: {
             selected: []
           },
-          errors: [],
-          csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+          errors: []
         }
       },
       methods: {
@@ -89,8 +91,9 @@
       },
       // needed to work out the limits
       created: function () {
-        let tasks = this.$props.data.tasks;
-        if (tasks) {
+       if (Object.keys(this.$props.data.task).length > 0) {
+          let tasks = this.$props.data.task[0];
+
           if (tasks.task1) {
             this.$parent[tasks.task1+'Limit']--;
             this.form.selected.push(tasks.task1);

@@ -1,15 +1,13 @@
 @charset "UTF-8";
 /* gradient */
-.btn-green {
-  background-color: #00686c;
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background-color: #1a8393 !important;
+  border-color: #1a8393 !important;
 }
 
-.text-green {
-  color: #00686c;
-}
-
-.bg-dark-green {
-  background-color: #00686c;
+.btn-dark, .btn-dark:hover, .btn-dark:active, .btn-dark:visited {
+  background-color: #386369 !important;
+  border-color: #386369 !important;
 }
 
 .root {
@@ -31,17 +29,30 @@
 .nav-itema, .nav-item :hover, .nav-item :active, .nav-item :link, .nav-item :visited {
   color: #fff;
 }
+.nav-item:not(.active):hover {
+  background: #26a590;
+}
+.nav-item.active a {
+  border-bottom: 1px solid white;
+}
+
+.site-title .highlight-text {
+  font-size: 1.7rem;
+}
+.site-title h5 {
+  font-size: 0.9rem !important;
+}
+.site-titlea, .site-title :hover, .site-title :active, .site-title :link, .site-title :visited {
+  color: #fff;
+  text-decoration: none !important;
+}
 
 .header {
-  min-height: 100px;
+  min-height: 120px;
 }
 
 .background {
   background-color: #01353D;
-}
-
-.nav-item.active a {
-  border-bottom: 1px solid white;
 }
 
 .dropdown-item.active a {
@@ -81,9 +92,12 @@
   height: 500px;
   padding: 15px;
   margin-left: 200px;
-  box-shadow: 2px 1px 3px 1px rgba(216, 215, 215, 0.5);
   margin: 0 auto;
   float: none;
+}
+
+.btn-green {
+  background-color: #00686c;
 }
 
 @media (max-width: 768px) {

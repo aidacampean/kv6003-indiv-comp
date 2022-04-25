@@ -8,44 +8,24 @@ ARG WORK_DIR=/var/www
 WORKDIR ${WORK_DIR}
  
 # Install dependencies
-RUN apk update && apk add --no-cache php8 \
+RUN apk update && apk add --no-cache php8 $PHPIZE_DEPS \
     php8-common \
     php8-pdo \
-    php8-opcache \
-    php8-zip \
-    php8-phar \
-    php8-iconv \
-    php8-cli \
-    php8-curl \
-    php8-openssl \
-    php8-mbstring \
-    php8-tokenizer \
-    php8-fileinfo \
-    php8-json \
-    php8-xml \
-    php8-xmlwriter \
-    php8-simplexml \
-    php8-dom \
-    php8-pdo_mysql \
-    # php8-pdo_sqlite \
-    php8-tokenizer \
-    # php8-pecl-redis \
     curl \
     bash \
     zip \
     unzip \
     nodejs \
-    npm
- 
+    npm \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
 # Clear cache
 # RUN apt-get clean && rm -rf /var/lib/apt/lists/*
  
 # Install extensions
-#RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
-#RUN docker-php-ext-install mysqli pdo pdo_mysql
-#RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 RUN docker-php-ext-install mysqli pdo pdo_mysql
- 
+
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
  

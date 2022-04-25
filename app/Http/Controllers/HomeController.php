@@ -34,6 +34,7 @@ class HomeController extends Controller
                     $q->where('collaborators.user_id', '=', Auth::id());
                 }
             )
+            ->with('tasks')
             ->orderBy('date_from', 'asc')
             ->get()->toArray();
 

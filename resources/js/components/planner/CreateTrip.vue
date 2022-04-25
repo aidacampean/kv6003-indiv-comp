@@ -11,15 +11,14 @@
               text-field="name"
               class="form-control"
               :state="changeState('city_id')"
+              @change="showDescription"
               style="max-height: 200px;"
             >
               <option :value="0">Please select a destination</option>
               <option v-for="option in options" :key="option.id" :value="option.id">
                 {{ option.name }}
               </option>
-              <p>{{ }}</p>
             </b-form-select>
-
           <b-form-invalid-feedback id="city-feedback">
             Please select a city
           </b-form-invalid-feedback>
@@ -83,8 +82,14 @@
           </b-button>
         </b-col>
       </b-row>
-      <input type="hidden" name="_token" :value="csrf" />
     </b-form>
+    <b-alert :show="Object.keys(cityDetails).length > 0" variant="light">
+      <h4>{{cityDetails.name}}</h4>
+      <hr>
+      <div v-html="cityDetails.description">
+        {{ cityDetails.description }}
+      </div>
+    </b-alert>
   </b-card>
 </template>
 
@@ -108,17 +113,14 @@
           date_to: '',
         },
         nameState: null,
-        test: '',
+        cityDetails: '',
+        errors: [],
         min: moment().format('YYYY-MM-DD'),
       }
     },
     methods: {
       changeState(field) {
-        if (this.errors) {
-          this.errors.hasOwnProperty(field) ? false : null
-        }
-
-        return null;
+        return this.errors.hasOwnProperty(field) ? false : null;
       },
       maxDays() {
         if (this.form.date_from  != '') {
@@ -135,6 +137,13 @@
           this.errors = response.data.errors
         })
       },
+      showDescription() {
+        let id = this.form.city_id
+        if (id != 0) {
+          return this.cityDetails = this.options[id-1]
+        }
+        return this.cityDetails = {}
+      }
     }
   }
 </script>
