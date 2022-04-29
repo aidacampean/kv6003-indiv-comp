@@ -49,20 +49,20 @@ describe("Days.vue", () => {
     })
   }
 
-  // test('We can add an event', () => {
-  //   const propsData =   {
-  //     tripId: 1,
-  //     events: [],
-  //     date: "2022-04-04",
-  //     counter: 1
-  //   }
+  test('We can add an event', () => {
+    const propsData =   {
+      tripId: 1,
+      events: [],
+      date: "2022-04-04",
+      counter: 1
+    }
 
-  // const wrapper = mountComponent(propsData)
+  const wrapper = mountComponent(propsData)
 
-  //   expect(wrapper.find(".add-event").text()).toBe("this is a test")
+    expect(wrapper.find(".add-event").text()).toBe("this is a test")
 
 
-  // })
+  })
 
   test('We can update an event', () => {
 

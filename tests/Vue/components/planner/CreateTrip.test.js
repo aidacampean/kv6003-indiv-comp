@@ -1,6 +1,6 @@
 import { mount, shallow, shallowMount } from '@vue/test-utils'
 import axios from "axios"
-import { BButton, BCol, BCard, BForm, BFormDatepicker, BFormGroup, BFormInput, BFormInvalidFeedback, BFormSelect, BRow } from 'bootstrap-vue'
+import { BButton, BCol, BCard, BForm, BFormDatepicker, BFormGroup, BFormInput, BFormInvalidFeedback, BFormSelect, BRow, VBTooltip } from 'bootstrap-vue'
 import CreateTrip from '@/planner/CreateTrip.vue'
 
 jest.mock("axios")
@@ -26,7 +26,8 @@ describe('CreateTrip.vue', () => {
       'b-form-group': BFormGroup,
       'b-form-invalid-feedback': BFormInvalidFeedback,
       'b-form-select': BFormSelect,
-      "b-row": BRow
+      "b-row": BRow,
+      "b-tooltip": VBTooltip
     }
   });
 

@@ -54,7 +54,7 @@
                         </tbody>
                     </table>
                 </div>
-                @if (count($trip['collaborators']) <= 5)
+                @if (count($trip['collaborators']) <= 2)
                 <div class="footer">
                     <a
                       type="button"
@@ -68,7 +68,7 @@
                         <i class="fa-solid fa-paper-plane-top"></i>
                     </a>
                 </div>
-                @elseif (count($trip['collaborators']) > 5)
+                @elseif (count($trip['collaborators']) > 2)
                 <div class="footer">
                     <button
                       type="submit"

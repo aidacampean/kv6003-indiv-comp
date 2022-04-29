@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Event>
  */
-class EventFactory extends Factory
+class CollaboratorFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class EventFactory extends Factory
     public function definition()
     {
         return [
-            'trip_id' => \App\Models\Trip::pluck('id')->random(),
+            'trip_id' => 1,
             'user_id' => 1,
             'role' => $this->faker->randomElement(['owner', 'collaborator'])
         ];

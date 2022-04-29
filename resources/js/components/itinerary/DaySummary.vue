@@ -1,11 +1,11 @@
 <template>
   <div class="summary">
-    <div v-if="data.length == 0" class="p-4">
+    <div v-if="data.length == 0" class="mt-3 mb-3">
       There are no events
     </div>
     <div v-for="value in data" :key="value.id">
       <hr>
-      <div>
+      <div class="bg-dark-green text-white p-2">
         <h5 >{{ 'EVENT TYPE: ' }} {{ value.name.toUpperCase() }}</h5>
       </div>
       <br>

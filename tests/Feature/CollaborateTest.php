@@ -24,7 +24,7 @@ class CollaborateTest extends TestCase
         $this->artisan('db:seed');
 
         $this->user = User::find(1);
-        $this->trip = Trip::whereUserId($this->user['id'])->first();
+        $this->trip = Trip::whereUserId($this->user['id'])->with('collaborators.user')->first();
     }
 
     public function testIfUserNotLoggedIn()
@@ -79,10 +79,33 @@ class CollaborateTest extends TestCase
     //         'task2' => 'hotel'
     //     ])->assertSessionHasNoErrors();
 
-    //    $taskRecord = Task::where('collaborator_id', 2)->first();
+    //     $taskRecord = Trip::where('collaborator_id', 2)->first();
+
     //    $this->assertEquals($taskRecord->task1, 'flight', $taskRecord);
     //    $this->assertEquals($taskRecord->task2, 'hotel', $taskRecord);
+    //    $this->post('/trip/' . $this->trip['id'] . '/add-task/2', [
+    //         'task1' => 'other',
+    //         'task2' => 'excursion'
+    //     ])->assertSessionHasNoErrors();
 
+    //     $taskRecord = Task::find($taskRecord['id']);
+
+    //     $this->assertEquals($taskRecord->task1, 'other', $taskRecord);
+    //     $this->assertEquals($taskRecord->task2, 'excursion', $taskRecord);
+    // }
+
+    
+    // public function testValidUserCanAddAndUpdateTask()
+    // {
+    //     $this->actingAs($this->user);
+    //     $this->post('/trip/' . $this->trip['id'] . '/add-task/2', [
+    //         'task1' => 'flight',
+    //         'task2' => 'hotel'
+    //     ])->assertSessionHasNoErrors();
+
+    //     $taskRecord = Trip::where('collaborator_id', 2)->first();
+    //    $this->assertEquals($taskRecord->task1, 'flight', $taskRecord);
+    //    $this->assertEquals($taskRecord->task2, 'hotel', $taskRecord);
     //    $this->post('/trip/' . $this->trip['id'] . '/add-task/2', [
     //         'task1' => 'other',
     //         'task2' => 'excursion'

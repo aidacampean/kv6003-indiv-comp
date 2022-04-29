@@ -54,7 +54,7 @@ class UserController extends Controller
         }
 
         if ($account->save()) {
-            return redirect()->back()->with('success', 'Your password has been changed successfully');
+            return redirect()->route('my-account')->with('success', 'Your password has been changed successfully');
         }
 
         return redirect()->back()->with('success', 'Something has gone wrong. Please try again');
