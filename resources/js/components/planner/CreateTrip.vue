@@ -1,8 +1,8 @@
 <template>
-  <b-card class="sm position-relative">
-    <b-form name="create-trip" class="root justify-content-sm-center" v-on:submit.prevent>
-      <b-row class="fixed">
-        <b-col class="mx-md-2 pb-md-3">
+  <b-card class>
+    <b-form inline name="create-trip" class="root justify-content-sm-center" v-on:submit.prevent>
+      <b-row class>
+        <b-col class="mx-md-4 sm-6 mx-md-3 pb-md-3">
           <label for="city">City</label>
             <b-form-select
               id="city"
@@ -23,8 +23,9 @@
             Please select a city
           </b-form-invalid-feedback>
         </b-col>
-
-        <b-col class="mx-md-2 pb-md-3">
+      </b-row>
+      <b-row >
+        <b-col class="mx-md-4 sm-2 mx-md-3 pb-md-3">
             <label for="tripName">Trip Name</label>
             <b-form-input
               id="trip-name"
@@ -37,8 +38,9 @@
               Please enter a trip name
             </b-form-invalid-feedback>
         </b-col>
-
-        <b-col  class="mx-md-2 pb-md-3">
+      </b-row>
+      <b-row>
+        <b-col sm=10 class="mx-md-4 sm-6 mx-md-3 pb-md-3">
           <label for="date-from">Date From</label>
           <b-form-datepicker
             id="date-from"
@@ -51,8 +53,9 @@
             Please enter a departure date
           </b-form-invalid-feedback>
         </b-col>
-
-        <b-col sm=3 class="mx-md-2 pb-md-3">
+      </b-row>
+      <b-row>
+        <b-col sm=10 class="mx-md-4 sm-2 pb-md-3">
           <label for="date-to">Date To</label>
           <b-form-datepicker
             id="date-to"
@@ -68,9 +71,9 @@
           </b-form-invalid-feedback>
         </b-col>
       </b-row>
-
-      <b-row class="mt-md-2 mx-md-4">
-        <b-col sm=9>
+      <b-row class="flex">
+        <b-col class="xl-11 mx-md-4 mx-md-3 mx-sm-3 pb-md-3">
+          <br />
           <b-button
             name="submit"
             class="clearfix"
@@ -149,11 +152,19 @@
 </script>
 
 <style scoped>
+body {
+  width: 100%;
+  height: 100%;
+}
   .fixed {
       padding-top: 40px;
       padding-bottom: 40px;
       height: 200px;
       width:75%;
       align-items: center;
+  }
+
+  .height {
+    max-height: 20px;
   }
 </style>
