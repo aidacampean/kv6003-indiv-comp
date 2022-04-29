@@ -28,6 +28,8 @@ import {
 } from "bootstrap-vue";
 
 Vue.config.productionTip = false;
+Vue.config.debug = false;
+Vue.config.silent = false;
 Vue.use(BootstrapVue)
 
 window.Vue = require('vue').default;
