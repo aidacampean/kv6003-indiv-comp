@@ -19,7 +19,7 @@ class CollaboratorFactory extends Factory
         return [
             'trip_id' => 1,
             'user_id' => 1,
-            'role' => $this->faker->randomElement(['owner', 'collaborator'])
+            'role' => $this->faker->randomElement(['admin', 'collaborator'])
         ];
     }
 }

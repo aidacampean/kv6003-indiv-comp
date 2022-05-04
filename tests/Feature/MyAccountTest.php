@@ -29,13 +29,10 @@ class MyAccountTest extends TestCase
     public function testUserCanNavigateToMyAccount()
     {
         $this->actingAs($this->user);
-        //$trip = Trip::whereUserId($user['id'])->first();
         $response = $this->get('/account');
-
         $response->assertStatus(200);
     }
 
-    // not right endpoint
     public function testUserCanUpdateEmail()
     {
         $this->actingAs($this->user);
@@ -43,12 +40,10 @@ class MyAccountTest extends TestCase
             'email' => 'test@nottaken.com'
         ])->assertSessionHasNoErrors();
         $update = User::where('email', 'test@nottaken.com')->first();
-        $this->assertEquals($update->email,'test@nottaken.com');
-
+        $this->assertNotEquals($update->email, $this->user['email']);
         $response->assertStatus(302);
     }
 
-    // not right endpoint
     public function testUserCanUpdatePassword()
     {
         $newPassword = 'tester1234567';
@@ -56,29 +51,25 @@ class MyAccountTest extends TestCase
 
         $this->actingAs($this->user);
         $response = $this->post('/account/store-password/', [
-            'password' => 'test',
+            'current_password' => 'test',
             'new_password' => $newPassword,
-            'password_confirmation' => $confirm
+            'confirm_new_password' => $confirm
         ]);
-        $currentPass = User::where('password', 'test')->first();
-        $this->assertEquals($currentPass->password,'test', $currentPass);
 
-        $this->assertEquals($confirm, $newPassword, $confirm);
+        $currentPass = User::where('id', $this->user['id'])->first();
+        $this->assertNotEquals($currentPass->password, $this->user['password']);
         $response->assertStatus(302);
     }
 
-    // public function testUserCannotUpdatePasswordIfCurrentPasswordEmpty()
-    // {
-    //     $this->actingAs($this->user);
-    //     $response = $this->post('/account/store-password/', [
-    //         'current_password' => '',
-    //         'new_password' => 'tester123',
-    //         'password_confirmation' => 'tester123'
-    //     ]);
+    public function testUserCannotUpdatePasswordIfCurrentPasswordEmpty()
+    {
+        $this->actingAs($this->user);
+        $response = $this->post('/account/store-password/', [
+            'current_password' => '',
+            'new_password' => 'tester123',
+            'password_confirmation' => 'tester123'
+        ])->assertSessionHasErrors('current_password');
 
-    //     $update = User::where('email', 'test@nottaken.com')->first();
-    //     $this->assertEquals($update->email,'test@nottaken.com', $update);
-
-    //     $response->assertRedirect('/');
-    // }
+        $response->assertRedirect('/');
+    }
 }

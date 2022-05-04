@@ -1,7 +1,9 @@
 @extends('layouts.main')
 
 @section('content')
+
 @include('partials/alerts')
+
 @foreach ($errors->all() as $error)
     <div class="alert alert-danger alert-dismissible" role="alert" aria-live="polite" aria-atomic="true">
     {{ $error }}
@@ -23,8 +25,6 @@
                 <form novalidate name="invite" class="form-inline justify-content-md-center" method="POST" action="{{ route('store-invite', ['id' => $trip['id']]) }}">
                     @csrf
     
-                    <!-- <div id="input-group-1" role="group" class="form-group mx-3 pt-4"> -->
-                        <!-- <label for="email">Email address</label> -->
                     <input
                         id="email"
                         type="text"
@@ -36,23 +36,24 @@
                         class="form-control form-control-lg mx-3"
                         value="{{old('email')}}"
                     />
-                    @if (count($trip['collaborators']) <= 2)
-                    <button type="submit" class="btn btn-dark">
-                        Send Invite
-                        <i class="fa-solid fa-paper-plane ml-2"></i>
-                    </button>
-                    @elseif (count($trip['collaborators']) > 2)
-                    <button
-                      type="submit"
-                      class="btn btn-dark disabled"
-                      aria-disabled="true"
-                    >
-                        Send Invite
-                        <i class="fa-solid fa-paper-plane ml-2"></i>
-                    </button>
-                    <span style="font-size: 18px; color: Dodgerblue;" v-b-tooltip.hover title="This is the maximum number of collaborators you can invite">
-                          <i class="mx-2 fa-solid fa-circle-info"></i>
-                    </span>
+                    @if (count($trip['collaborators']) < 5)
+                        <button type="submit" class="btn btn-dark">
+                            Send Invite
+                            <i class="fa-solid fa-paper-plane ml-2"></i>
+                        </button>
+                    @elseif (count($trip['collaborators']) >= 5)
+                        <button
+                        type="submit"
+                        class="btn btn-dark disabled"
+                        aria-disabled="true"
+                        disabled="true"
+                        >
+                            Send Invite
+                            <i class="fa-solid fa-paper-plane ml-2"></i>
+                        </button>
+                        <span style="font-size: 18px; color: Dodgerblue;" v-b-tooltip.hover title="This is the maximum number of collaborators you can invite">
+                            <i class="mx-2 fa-solid fa-circle-info"></i>
+                        </span>
                     @endif
                 </form>
             </div>

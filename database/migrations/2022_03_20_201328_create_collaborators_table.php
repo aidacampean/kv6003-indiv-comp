@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('trip_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
             $table->enum('role', [
-                'owner',
+                'admin',
                 'collaborator'
             ]);
             $table->timestamps();

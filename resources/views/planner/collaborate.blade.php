@@ -54,7 +54,7 @@
                         </tbody>
                     </table>
                 </div>
-                @if (count($trip['collaborators']) <= 2)
+                @if (count($trip['collaborators']) <= 5)
                 <div class="footer">
                     <a
                       type="button"
@@ -68,13 +68,14 @@
                         <i class="fa-solid fa-paper-plane-top"></i>
                     </a>
                 </div>
-                @elseif (count($trip['collaborators']) > 2)
+                @elseif (count($trip['collaborators']) > 5)
                 <div class="footer">
                     <button
                       type="submit"
                       class="text-white btn btn-dark disabled"
                       href="{{ route('invite', ['id' => $trip['id']] ) }}"
                       aria-disabled="true"
+                      disabled="true"
                     >
                         <!-- add edit icon -->
                         Invite

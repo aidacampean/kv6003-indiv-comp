@@ -53,7 +53,7 @@
 
               @if ($isOwner)
                 <a class="mt-2 text-white btn btn-primary" href="{{ route('collaborate', ['id' => $trip['id']]) }}" v-b-tooltip.hover title="Manage collaboration">
-                    <i class="fa-solid fa-people-group"></i>
+                    <i class="fa-solid fa-user-group"></i>
                     Manage
                 </a>
                 <a class="mt-2 text-white btn btn-dark" href="{{ route('delete-trip', ['id' => $trip['id']]) }}" onclick="return confirm('Are you sure?')" v-b-tooltip.hover title="Attention: You're about to delete the trip with its associated itinerary">

@@ -9,12 +9,20 @@
 
         <div class="row justify-content-md-center pt-3">
             <div class="col-sm-9">
-                <input id="username" placeholder="Username or email" type="username" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" autocomplete="username">
-                @error('username')
+                <input
+                    id="username"
+                    placeholder="Username or email"
+                    type="text"
+                    class="form-control {{ $errors->has('username') || $errors->has('email') ? 'is-invalid' : ''}}"
+                    name="username"
+                    value="{{ old('username') ?: old('email') }}"
+                    autocomplete="username"
+                >
+                @if ($errors->has('username') || $errors->has('email'))
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong>{{ $errors->first('username') ?: $errors->first('email') }}</strong>
                     </span>
-                @enderror
+                @endif
             </div>
         </div>
         <div class="row justify-content-md-center pt-3">

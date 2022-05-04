@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreTrip extends FormRequest
 {
@@ -13,7 +14,7 @@ class StoreTrip extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -25,7 +26,7 @@ class StoreTrip extends FormRequest
     {
         return [
             // db columns
-            'name' => 'required|string|max:255|alpha_num',
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z0-9\s]+$/',
             'city_id' => 'required|int|gt:0',
             'date_from' => 'required|date',
             'date_to' => 'required|date|after:date_from',

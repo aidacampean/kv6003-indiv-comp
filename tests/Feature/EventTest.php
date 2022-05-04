@@ -61,12 +61,47 @@ class EventTest extends TestCase
             'notes' => 'This is a test',
             'date' => '2022-10-10',
         ]);
-        
-        $response
-        ->assertStatus(200)
-        ->assertJsonFragment([
-            'success' => true,
+
+        $content = json_decode($response->getContent(), true);
+
+        $updateResponse = $this->post('trip/update-event/' . $content['id'], [
+            'name' => 'Testing the update',
+            'description' => 'This is a test to ensure update works',
+            'notes' => 'Just a test'
         ]);
 
+        $eventRecord = Event::find($content['id']);
+
+        $this->assertEquals($eventRecord->name, 'Testing the update', $eventRecord);
+        $this->assertEquals($eventRecord->description, 'This is a test to ensure update works', $eventRecord);
+
+        $updateResponse
+            ->assertStatus(200)
+            ->assertJsonFragment([
+                'success' => true,
+            ]);
+    }
+
+    public function testValidUserCanDeleteEvent()
+    {
+        $this->actingAs($this->user);
+        $response = $this->post('trip/add-event', [
+            'id' => $this->trip['id'],
+            'user_id' => $this->user['id'],
+            'name' => 'Test',
+            'description' => 'This is a test',
+            'notes' => 'This is a test',
+            'date' => '2022-10-10',
+        ]);
+
+        $content = json_decode($response->getContent(), true);
+
+        $deleteResponse = $this->get('trip/destroy-event/' . $content['id']);
+
+        $deleteResponse
+            ->assertStatus(200)
+            ->assertJsonFragment([
+                'success' => true,
+            ]);
     }
 }

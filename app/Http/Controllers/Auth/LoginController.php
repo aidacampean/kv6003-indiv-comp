@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreLogin;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -30,6 +28,8 @@ class LoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    protected $username;
+
     /**
      * Create a new controller instance.
      *
@@ -38,34 +38,19 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->username = $this->findUsername();
     }
 
-    // protected function validator(array $data)
-    // {
-    //     return Validator::make($data, [
-    //         'name' => ['required', 'string', 'max:255'],
-    //         'username' => ['required', 'string', 'max:255', 'unique:users'],
-    //         'password' => ['required', 'string', 'min:8', 'confirmed'],
-    //     ]);
-    // }
-
-    public function login(StoreLogin $request)
+    public function findUsername()
     {
+        $username = request()->input('username');
+        $fieldType = filter_var($username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        request()->merge([$fieldType => $username]);
+        return $fieldType;
+    }
 
-        $input = $request->all();
-        $validated = $request->validated();
-
-        //check if remember me checkbos is ticket or not
-        $rememberMe = $request->has('remember') ? true : false;
-
-        $fieldType = filter_var($validated['username'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-        if (auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password']), $rememberMe)) {
-            return redirect()->route('home');
-        } else {
-            return redirect()->route('login')
-                                ->with('auth.failed');
-
-            ;
-        }
+    public function username()
+    {
+        return $this->username;
     }
 }

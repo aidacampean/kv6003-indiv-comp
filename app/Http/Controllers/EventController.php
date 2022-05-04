@@ -19,39 +19,6 @@ class EventController extends Controller
         $this->middleware('auth');
     }
 
-    /*
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-        // Trip::whereHas('sections')->get();
-
-        // return view('sections');
-        // print_r($data);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-        $events = Event::all()->toArray();
-
-        return view(
-            'sections',
-            [
-                'events' => 'create-trip',
-                'data' => $events
-            ]
-        );
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -79,17 +46,6 @@ class EventController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Event  $event
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Event $event)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -98,7 +54,6 @@ class EventController extends Controller
      */
     public function update(UpdateEvent $request, int $id)
     {
-        //
         $validated = $request->validated();
         $event = Event::whereId($id)->firstOrFail();
 

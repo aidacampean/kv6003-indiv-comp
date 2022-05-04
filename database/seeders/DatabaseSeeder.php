@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             TripSeeder::class,
             UserInvitationSeeder::class,
-           // CollaborateSeeder::class
+            CollaborateSeeder::class,
+            EventSeeder::class
         ]);
     }
 }

@@ -186,6 +186,7 @@
       class="text-white w-100"
       size="lg"
       @click="$bvModal.show(date);"
+      v-b-tooltip.hover title="See day summary of events"
     >
       {{ 'DAY ' + counter + ' - '  }} {{ date | formatDate }}
     </b-button>
@@ -198,8 +199,17 @@
       + ADD
     </button>
     <b-card class="m-2" v-for="(event, index) in eventsData" :key="event.id" >
-      <a href="#" class="disabled-link" @click="updateModal(index);">{{ event.description }}</a>
-      <i class="float-right fa-regular fa-square-minus" @click="deleteEvent(event.id, index);"></i>
+      <a
+        href="#"
+        class="disabled-link"
+        @click="updateModal(index);">
+          {{ event.description }}
+        </a>
+      <i
+        class="float-right fa-regular fa-trash-can"
+        @click="deleteEvent(event.id, index);"
+        v-b-tooltip.hover.right title="Delete this event"
+      />
     </b-card>
   </b-col>
 </template>

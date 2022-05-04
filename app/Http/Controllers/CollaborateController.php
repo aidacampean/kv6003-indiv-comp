@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\InviteUser;
+use App\Models\Collaborator;
 use App\Models\Task;
 use App\Models\Trip;
 use App\Models\User;
@@ -70,8 +71,9 @@ class CollaborateController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreInvitation  $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function storeInvite(StoreInvitation $request, int $id)
     {
@@ -102,6 +104,7 @@ class CollaborateController extends Controller
                 ->with('error', 'There was an error with the request');
         }
     }
+
     public function storeTask(StoreTask $request, int $id, int $userId)
     {
         $validated = $request->validated();
@@ -141,22 +144,24 @@ class CollaborateController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
+     * @param int $collabId
      * @return \Illuminate\Http\Response
      */
-    // public function destroyCollaborator(int $tripId, int $userTripId)
-    // {
-    //     $trip = Trip::whereId($tripId)->firstOrFail();
+    public function destroyCollaborator(int $tripId, int $collabId)
+    {
+        $trip = Trip::whereId($tripId)->firstOrFail();
 
-    //     if ($this->authorize('delete', $trip)) {
-    //         $userTripId = Collaborator::whereId($userTripId)
-    //                 ->firstOrFail();
-    //         //if the record exists and it has been deleted, redirect back
-    //         if ($userTripId && $userTripId->delete()) {
-    //             return redirect()->back()->with('success', 'User ' . $userTripId->username . ' has been removed');
-    //         }
-    //         return redirect()->back()->with('error', 'We encountered an error removing the user. Please try again');
-    //     }
-    // }
+        if ($this->authorize('delete', $trip)) {
+            $collaborator = Collaborator::whereId($collabId)->firstOrFail();
+
+            //if the record exists and it has been deleted, redirect back
+            if ($collaborator && $collaborator->delete()) {
+                return redirect()->back()->with('success', 'User ' . $collaborator->username . ' has been removed');
+            }
+            return redirect()->back()->with('error', 'We encountered an error removing the user. Please try again');
+        }
+    }
+
     public function destroyInvite(int $tripId, int $inviteId)
     {
         $trip = Trip::whereId($tripId)->firstOrFail();
@@ -168,9 +173,9 @@ class CollaborateController extends Controller
             if ($invite && $invite->delete()) {
                 return redirect()->back()->with('success', 'Invite for ' . $invite->email . ' has been deleted');
             }
+        }
 
         // incomplete
-            return redirect()->back()->with('error', 'We encountered an error removing the invite. Please try again.');
-        }
+        return redirect()->back()->with('error', 'We encountered an error removing the invite. Please try again.');
     }
 }

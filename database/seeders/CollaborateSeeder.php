@@ -15,11 +15,11 @@ class CollaborateSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Collaborator::factory(10)->create()->each(function($collaborator) {
+        \App\Models\Collaborator::factory(15)->create()->each(function($collaborator) {
             $trip = \App\Models\Trip::inRandomOrder()->first();
 
             $collaborator->update([
-                'trip_id' => $trip['trip_id'],
+                'trip_id' => $trip['id'],
                 'user_id' => $trip['user_id']
             ]);
         });
