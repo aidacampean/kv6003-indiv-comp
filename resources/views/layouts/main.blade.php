@@ -72,6 +72,7 @@
             </header>
 
             <div class="p-5 container-fluid">
+                {{ Breadcrumbs::render() }}
                 @yield('content')
             </div>
         </div>
