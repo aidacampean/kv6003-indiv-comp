@@ -35,6 +35,7 @@ class CollaborateController extends Controller
         $trip = Trip::whereId($id)
             ->whereUserId(Auth::id())
             ->with('collaborators.user') // retrieve the user trip record with the user details from collaborators model
+            ->with('collaborators.task') // retrieve the user trip record with the user details from collaborators model
             ->with('userInvites') // retrieve the invites
             ->firstOrFail()->toArray();
 

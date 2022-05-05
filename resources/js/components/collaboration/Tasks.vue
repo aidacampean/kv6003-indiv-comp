@@ -1,5 +1,16 @@
 <template>
   <div class="table-responsive">
+    <b-alert
+      :show="alertType !=''"
+      dismissible
+      fade
+      :variant="alertType"
+      @dismissed="resetAlert"
+    >
+    <p v-if="alertType == 'danger'" class="m-0">An error was encountered saving the change</p>
+
+    <p v-if="alertType == 'success'" class="m-0">The changes have been saved</p>
+    </b-alert>
     <table class="table">
       <thead>
           <tr>
@@ -10,7 +21,7 @@
           </tr>
       </thead>
       <tbody v-if="users.length > 0">
-        <task-user v-for="user in users" :data="user" :key="user.id" />
+        <task-user v-for="user in users" :data="user" :key="user.id" v-on:saveEvent="showAlert" />
       </tbody>
       <tbody v-else>
         <tr>
@@ -53,11 +64,20 @@
               name: 'other'
             }
           ],
+          alertType: '',
           flightLimit: 2,
           hotelLimit: 2,
           excursionLimit: 2,
           otherLimit: 2,
           errors: []
+        }
+      },
+      methods: {
+        showAlert(value) {
+          this.alertType = value;
+        },
+        resetAlert() {
+          this.alertType = ''
         }
       }
     }

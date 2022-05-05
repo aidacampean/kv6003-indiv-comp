@@ -19,18 +19,22 @@ class TripTest extends TestCase
         parent::setUp();
 
         // seed the database
-        $this->artisan('db:seed');
-
-        $this->user = User::find(1);
-        $this->trip = Trip::whereUserId($this->user['id'])->first();
+        $this->user = User::factory()->create();
+        $this->trip = Trip::factory()->create([
+            'city_id' => 1,
+            'user_id' => $this->user['id'],
+            'name' => 'Test',
+            'date_from' => '2022-02-02',
+            'date_to' => '2022-02-10'
+        ]);
     }
 
-    public function testIfUserCanCreateIsNotLoggedIn()
+    public function testIfUserNotLoggedIn()
     {
         $this->get('trip/create')->assertRedirect('/login');
     }
 
-    public function testUserCanCreateIfLoggedIn()
+    public function testUserCanSeeTripIfLoggedIn()
     {
         $this->actingAs($this->user);
         $response = $this->get('trip/create');
@@ -45,7 +49,7 @@ class TripTest extends TestCase
         $response->assertStatus(302);
     }
 
-    public function testUserCanStoreTripIfValid()
+    public function testStoreTripReturnsSuccessIfValid()
     {
         $this->actingAs($this->user);
         $response = $this->post('trip/store', [
@@ -62,7 +66,7 @@ class TripTest extends TestCase
             ]);
     }
 
-    public function testUserCanDeleteTrip()
+    public function testAuthorizedUserCanDeleteTrip()
     {
         $this->actingAs($this->user);
         $response = $this->post('trip/store', [

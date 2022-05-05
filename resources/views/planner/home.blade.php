@@ -24,7 +24,7 @@
 
         @php
           $isOwner = ($trip['user_id'] == $user_id);
-          $showTasks = !empty($trip['tasks']);
+          $showTasks = count($trip['tasks']) > 0;
         @endphp
 
         <div class="col-md-3 my-2 h-100">

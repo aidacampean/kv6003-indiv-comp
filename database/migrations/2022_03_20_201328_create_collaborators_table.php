@@ -22,8 +22,6 @@ return new class extends Migration
                 'collaborator'
             ]);
             $table->timestamps();
-            $table->foreign('trip_id')->references('id')->on('trips');
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

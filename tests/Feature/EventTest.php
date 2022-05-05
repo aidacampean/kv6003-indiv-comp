@@ -19,10 +19,14 @@ class EventTest extends TestCase
     {
         parent::setUp();
 
-        $this->artisan('db:seed');
-
-        $this->user = User::find(1);
-        $this->trip = Trip::whereUserId($this->user['id'])->first();
+        $this->user = User::factory()->create();
+        $this->trip = Trip::factory()->create([
+            'city_id' => 1,
+            'user_id' => $this->user['id'],
+            'name' => 'Test',
+            'date_from' => '2022-02-02',
+            'date_to' => '2022-02-10'
+        ]);
     }
 
     public function testStoreEventReturnsValidationErrorsWhenEmpty()

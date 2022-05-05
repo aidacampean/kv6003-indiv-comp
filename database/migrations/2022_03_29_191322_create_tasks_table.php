@@ -20,8 +20,6 @@ return new class extends Migration
             $table->string('task1')->nullable(true);
             $table->string('task2')->nullable(true);
             $table->timestamps();
-            $table->foreign('collaborator_id')->references('id')->on('collaborators');
-            $table->foreign('trip_id')->references('id')->on('trips');
         });
     }
 

@@ -16,16 +16,27 @@ class CollaborateTest extends TestCase
 
     private $user;
     private $trip;
+    private $collaborate;
 
     public function setUp(): void
     {
         parent::setUp();
 
         // seed the database
-        $this->artisan('db:seed');
+        $this->user = User::factory()->create();
+        $this->trip = Trip::factory()->create([
+            'city_id' => 1,
+            'user_id' => $this->user['id'],
+            'name' => 'Test',
+            'date_from' => '2022-02-02',
+            'date_to' => '2022-02-10'
+        ]);
 
-        $this->user = User::find(1);
-        $this->trip = Trip::whereUserId($this->user['id'])->first();
+        $this->collaborate = Collaborator::factory()->create([
+            'trip_id' => $this->trip['id'],
+            'user_id' => $this->user['id'],
+            'role' => 'admin'
+        ]);
     }
 
     public function testIfUserNotLoggedIn()
@@ -75,16 +86,16 @@ class CollaborateTest extends TestCase
     public function testValidUserCanAddAndUpdateTask()
     {
         $this->actingAs($this->user);
-        $this->post('/trip/' . $this->trip['id'] . '/add-task/2', [
+        $this->post('/trip/' . $this->trip['id'] . '/add-task/' . $this->collaborate['id'], [
             'task1' => 'flight',
             'task2' => 'hotel'
         ])->assertSessionHasNoErrors();
 
-        $taskRecord = Task::where('collaborator_id', 2)->first();
+        $taskRecord = Task::where('collaborator_id', $this->collaborate['id'])->first();
 
        $this->assertEquals($taskRecord->task1, 'flight', $taskRecord);
        $this->assertEquals($taskRecord->task2, 'hotel', $taskRecord);
-       $this->post('/trip/' . $this->trip['id'] . '/add-task/2', [
+       $this->post('/trip/' . $this->trip['id'] . '/add-task/' . $this->collaborate['id'], [
             'task1' => 'other',
             'task2' => 'excursion'
         ])->assertSessionHasNoErrors();

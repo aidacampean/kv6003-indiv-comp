@@ -22,7 +22,6 @@ return new class extends Migration
             $table->float('budget', 8, 2)->nullable();
             $table->softDeletes();
             $table->timestamps();
-            $table->foreign('trip_id')->references('id')->on('trips');
         });
     }
 

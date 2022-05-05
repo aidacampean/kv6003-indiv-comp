@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('invite_code');
             $table->timestamps();
-            $table->foreign('trip_id')->references('id')->on('trips');
         });
     }
 

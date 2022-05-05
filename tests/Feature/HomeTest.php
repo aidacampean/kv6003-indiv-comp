@@ -10,13 +10,21 @@ use Tests\TestCase;
 class HomeTest extends TestCase
 {
     use RefreshDatabase;
+    private $user;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        // seed the database
-        $this->artisan('db:seed');
+        //$this->artisan('db:seed');
+        $this->user = User::factory()->create();
+        $this->trip = Trip::factory()->create([
+            'city_id' => 1,
+            'user_id' => $this->user['id'],
+            'name' => 'Test',
+            'date_from' => '2022-02-02',
+            'date_to' => '2022-02-10'
+        ]);
     }
 
     public function testIfUserNotLoggedIn()
@@ -26,25 +34,20 @@ class HomeTest extends TestCase
 
     public function testUserCanSeeHomeIfLoggedIn()
     {
-        $user = User::find(2);
-        $trips = Trip::whereUserId($user['id'])->first()->toArray();
-
-        $this->actingAs($user);
+        $this->actingAs($this->user);
         $response = $this->get('/home');
         $this->assertTrue($response->isOk());
     }
 
     public function testUserHasNoTripsWhenLoggedInSeesDefaultMessage()
     {
-        $user = User::find(2);
-
-        $this->actingAs($user);
+        $this->actingAs($this->user);
 
         $view = $this->view('planner.home',
             [
                 'trips' => [],
                 'section' => 'home',
-                'userId' => $user['id']
+                'userId' => $this->user['id']
             ]
         );
 
@@ -53,19 +56,17 @@ class HomeTest extends TestCase
 
     public function testUserCanSeeTripsWhenLoggedIn()
     {
-        $user = User::find(2);
-
-        $this->actingAs($user);
-        $trips = Trip::whereUserId($user['id'])->first()->toArray();
+        $this->withoutExceptionHandling();
+        $this->actingAs($this->user);
 
         $view = $this->view('planner.home',
             [
-                'trips' => [$trips],
+                'trips' => [$this->trip],
                 'section' => 'home',
-                'user_id' => $user['id']
+                'user_id' => $this->user['id']
             ]
         );
 
-        $view->assertSee($trips['name']);
+        $view->assertSee($this->trip['name']);
     }
 }

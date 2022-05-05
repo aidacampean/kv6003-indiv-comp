@@ -22,8 +22,6 @@ return new class extends Migration
             $table->timestamp('date_to');
             $table->softDeletes();
             $table->timestamps();
-            $table->foreign('city_id')->references('id')->on('cities');
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

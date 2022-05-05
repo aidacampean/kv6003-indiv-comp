@@ -25,7 +25,6 @@
         variant="primary"
         @click="saveTasks"
         class="clearfix mb-md-2 mb-xl-0"
-        v-b-tooltip.hover title="This button will save or update the tasks"
       >
         Save
       </b-button>
@@ -35,7 +34,6 @@
           @click="deleteUser"
           v-b-tooltip.hover title="This button will delete the user"
       >
-      
         Delete
       </a>
     </td>
@@ -43,11 +41,13 @@
 </template>
 
 <script>
+  import axios from 'axios'
+
     export default {
       props: {
         data: {
           type: Object,
-          default: () => [],
+          default: () => {[]},
         },
       },
       data() {
@@ -72,27 +72,28 @@
           return (this.form.selected.length == 2 || this.$parent[task+'Limit'] == 0) && this.form.selected.indexOf(task) === -1;
         },
         saveTasks() {
-          axios.post('/trip/'+this.data.trip_id+'/add-task/'+this.data.id, {
+          axios.post('/trip/' + this.data.trip_id + '/add-task/' + this.data.id, {
             'task1': this.form.selected[0] ? this.form.selected[0] : null,
             'task2': this.form.selected[1] ? this.form.selected[1] : null,
-          }).then(()=> {
+          }).then((data)=> {
+            if (data.status == 200) {
+              this.$emit('saveEvent', 'success')
+            }
           }).catch(({response}) => {
             this.errors = response.data.errors
+            this.$emit('saveEvent', 'danger')
           })
         },
         deleteUser() {
-          axios.get('/trip/'+this.data.trip_id+'/destroy-collaborator/'+this.data.id)
-          .then(()=> {
-            this.$delete(this.data.id)
-          }).catch(({response}) => {
-            this.errors = response.data.errors
-          })
+          if(confirm("Delete this user?")) {
+            window.location.href = "/trip/" + this.data.trip_id + "/destroy-collaborator/" + this.data.id
+          }
         }
       },
       // needed to work out the limits
       created: function () {
-       if (Object.keys(this.$props.data.task).length > 0) {
-          let tasks = this.$props.data.task[0];
+       if (typeof this.$props.data.task !== "undefined" && Object.keys(this.$props.data.task).length > 0) {
+          let tasks = this.$props.data.task;
 
           if (tasks.task1) {
             this.$parent[tasks.task1+'Limit']--;

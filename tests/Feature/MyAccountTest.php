@@ -16,9 +16,7 @@ class MyAccountTest extends TestCase
     {
         parent::setUp();
 
-        // seed the database
-        $this->artisan('db:seed');
-        $this->user = User::find(1);
+        $this->user = User::factory()->create();
     }
 
     public function testIfUserNotLoggedIn()

@@ -1,6 +1,6 @@
 <template>
   <b-col class="bottom-margin" lg=3>
-        <b-modal :id="modalId" size="lg" hide-footer scrollable title="Add your details to the itinerary">
+        <b-modal :id="modalId" size="lg" :static="true" hide-footer scrollable title="Add your details to the itinerary">
           <nav v-show="form.id == ''" >
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <a
@@ -29,26 +29,26 @@
                 Hotel
               </a>
 
-              <a 
+              <a
                 class="nav-link"
-                id="nav-excursions-tab" 
+                id="nav-excursions-tab"
                 data-toggle="tab"
-                href="#nav-excursions" 
-                role="tab" 
-                aria-controls="nav-excursions" 
-                aria-selected="false" 
+                href="#nav-excursions"
+                role="tab"
+                aria-controls="nav-excursions"
+                aria-selected="false"
                 @click="setEvent('excursion')"
                 >
                 Excursions
               </a>
-              
-              <a 
-                class="nav-link" 
+
+              <a
+                class="nav-link"
                 id="nav-other-tab"
-                data-toggle="tab" 
-                href="#nav-other" 
+                data-toggle="tab"
+                href="#nav-other"
                 role="tab"
-                aria-controls="nav-other" 
+                aria-controls="nav-other"
                 aria-selected="false"
                 @click="setEvent('other')"
                 >
@@ -106,7 +106,6 @@
                 max-rows="6"
                 v-model="form.notes"
               ></b-form-textarea>
-             
             </b-form-group>
           </div>
 
@@ -175,12 +174,12 @@
     <b-modal :id="date" size="lg" hide-footer hide-header scrollable>
       <h2>{{ 'DAY SUMMARY' }}</h2>
       <div class="mt-2"><h5>{{ 'DATE: ' }} {{ date | formatDate }}</h5></div>
-      <day-summary 
-      :data="events"
+      <day-summary
+        :data="events"
       />
       <b-button class="" variant="danger" @click="$bvModal.hide(date)">Close</b-button>
     </b-modal>
- 
+
     <b-button
       variant="green"
       class="text-white w-100"
@@ -191,7 +190,7 @@
       {{ 'DAY ' + counter + ' - '  }} {{ date | formatDate }}
     </b-button>
 
-    <button 
+    <button
       class="add-event"
       @click="addModal(modalId)"
       v-b-tooltip.hover.bottomright title="Add events to this day"
@@ -216,8 +215,9 @@
 
 <script>
   import DaySummary from './DaySummary.vue';
+  import axios from 'axios';
 
-  export default { 
+  export default {
     components: {
       'day-summary': DaySummary
     },
@@ -336,23 +336,6 @@
       },
       setEvent(event) {
         return this.form.name = event;
-      },
-      searchHotel() {
-        axios({
-          method: 'get', //you can set what request you want to be
-          url: 'https://booking-com.p.rapidapi.com/v1/hotels/search',
-          params: {
-            dest_id: '-1156174',
-            dest_type: 'city',
-            locale: 'en-gb',
-            checkin_date: '',
-            checkout_date: '',
-          },
-          headers: {
-            'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
-            'X-RapidAPI-Key': '64808efcb9mshdbbd115b58b2858p1ee947jsn79d44e85a5e1'
-          }
-        })
       }
     }
   }
